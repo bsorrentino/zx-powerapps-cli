@@ -7,15 +7,10 @@
  * 
  */
 import 'zx/globals'
-import { askForAuthProfile } from './zx-solution-utils.mjs'
-
-const askForSolutionName = async () => {
-    if( argv.solution ) {
-        return argv.solution
-    }
-    await $`pac solution list`
-    return question('solution folder: ')
-}
+import { 
+    askForAuthProfile, 
+    askForSolutionFolder 
+} from './zx-solution-utils.mjs'
 
 const askForPackageType = async () => {
     if( argv.package ) {
@@ -29,17 +24,25 @@ const askForPackageType = async () => {
     return 'Managed'
 }
 
+const askForUpdateVersion = async () => {
+    
+    const update = await question('update version (Y/n)? ')
+    if (update !== 'n' && update !== 'N') {
+        // update version
+        cd( path.join( solution, 'Other' ) )
+        await $`pac solution version -s solution`
+        cd( path.join( '..', '..' ) )
+    }
+}
+
 (async () => {
     try {
 
         await askForAuthProfile()
 
-        const solution = await askForSolutionName()
+        const solution = await askForSolutionFolder()
 
-        // update version
-        cd( path.join( solution, 'Other' ) )
-        await $`pac solution version -s solution`
-        cd( path.join( '..', '..' ) )
+        await askForUpdateVersion()
 
         const package_type = await askForPackageType()
 

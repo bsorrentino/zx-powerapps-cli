@@ -13,3 +13,12 @@ export const askForAuthProfile = async () => {
     
 
 }
+
+
+export const askForSolutionFolder = async ( solutionList = false ) => {
+    if( argv.solution ) {
+        return argv.solution
+    }
+    if( solutionList) await $`pac solution list`
+    return question('solution folder: ')
+}
