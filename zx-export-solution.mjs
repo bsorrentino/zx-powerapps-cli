@@ -49,7 +49,7 @@ const  publishCustomization = async () => {
 
             for (let i = 0; i < rows.length; ++i) {
                 //console.log( `${i}-${rows[i]}` )
-                const exp = /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+].[\d+])/ig
+                const exp = /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig
                 const m = exp.exec(rows[i])
                 //console.log( i, m)
                 if (m !== null) {          
