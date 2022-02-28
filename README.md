@@ -17,7 +17,7 @@ Export solution from powerapps a environment unpacking and saving it on local fi
 
 #### Usage 
 ```
-zx-export-solution [--authindex <n>]
+npx zx-export-solution [--authindex <n>]
 ```
 Such command interactively ask for :
 1. Authentication profile's index (if not provided on command line).
@@ -25,13 +25,13 @@ Such command interactively ask for :
 
 ### zx-import-solution
 ```
-zx-import-solution [--authindex <n>] [--solution <solution folder>] [--package Managed|Unmanaged|Both]
+npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--package Managed|Unmanaged|Both]
 ```
 Pack solution from local file system and import it in a powerapps environment 
 
 ### zx-unpack-msapps
 ```
-zx-unpack-msapps [--solution <solution folder>]
+npx zx-unpack-msapps [--solution <solution folder>]
 ```
 Unpack canvas app bundles (.msapp) contained in an exported solution
 
