@@ -22,6 +22,7 @@ npx zx-export-solution [--authindex <n>]
 Such command interactively ask for :
 1. Authentication profile's index (if not provided on command line).
 1. Solution's name that you've to export. Take note that available solutions will be displayed before 
+1. Publish customization
 
 ### zx-import-solution
 ```
