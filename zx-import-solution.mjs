@@ -9,7 +9,8 @@
 import 'zx/globals'
 import { 
     askForAuthProfile, 
-    askForSolutionFolder 
+    askForSolutionFolder,
+    askForUpdateVersion
 } from './zx-solution-utils.mjs'
 
 const askForPackageType = async () => {
@@ -24,25 +25,14 @@ const askForPackageType = async () => {
     return 'Managed'
 }
 
-const askForUpdateVersion = async () => {
-    
-    const update = await question('update version (Y/n)? ')
-    if (update !== 'n' && update !== 'N') {
-        // update version
-        cd( path.join( solution, 'Other' ) )
-        await $`pac solution version -s solution`
-        cd( path.join( '..', '..' ) )
-    }
-}
-
 (async () => {
     try {
 
-        await askForAuthProfile()
+        await askForAuthProfile( )
 
         const solution = await askForSolutionFolder()
 
-        await askForUpdateVersion()
+        await askForUpdateVersion( solution )
 
         const package_type = await askForPackageType()
 
