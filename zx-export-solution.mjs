@@ -1,6 +1,9 @@
 #!/usr/bin/env zx
 import 'zx/globals'
-import { askForAuthProfile } from './zx-solution-utils.mjs'
+import { 
+    askForAuthProfile,
+    askForUpdateVersion 
+ } from './zx-solution-utils.mjs'
 
 const DELETE_SOLUTION_ZIPPED = true
 
@@ -80,7 +83,9 @@ const  publishCustomization = async () => {
                 }
                 else {
                     await $`pac solution unpack --zipfile ${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
-                }                
+                }  
+                              
+                await askForUpdateVersion( solution_to_export.name, solution_to_export.ver )
 
             }
             else {
