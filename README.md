@@ -1,6 +1,6 @@
 # zx-powerapps-cli
 
-[zx](https://www.npmjs.com/package/zx) scripts to simplify interactive [powerapps cli (pac)](https://docs.microsoft.com/en-us/powerapps/developer/data-platform/powerapps-cli) usage
+[ZX] scripts to simplify interactive [Powerapps CLI (pac)] usage
 
 ## Getting started 
 
@@ -11,7 +11,6 @@ npm install @bsorrentino/zx-powerapps-cli --save-dev
 ## Commands
 
 ### zx-export-solution
-
 Export solution from powerapps a environment unpacking and saving it on local file system.
 > Solution is exported in both **Managed** and **Unmanged** package type
 
@@ -27,6 +26,8 @@ Such command interactively ask for :
 
 ### zx-import-solution
 Pack solution from local file system and import it in a powerapps environment 
+
+#### Usage 
 ```
 npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--package Managed|Unmanaged|Both]
 ```
@@ -37,9 +38,13 @@ Such command interactively ask for :
 
 ### zx-unpack-msapps
 Unpack canvas app bundles (.msapp) contained in an exported solution
+
+#### Usage 
 ```
 npx zx-unpack-msapps [--solution <solution folder>]
 ```
 Such command interactively ask for :
 1. Solution's folder (if not provided on command line) 
 
+[ZX]: https://www.npmjs.com/package/zx
+[Powerapps CLI (pac)]: https://docs.microsoft.com/en-us/powerapps/developer/data-platform/powerapps-cli
