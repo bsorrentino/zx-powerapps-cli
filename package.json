@@ -12,12 +12,14 @@
     "zx-import-solution": "./zx-import-solution.mjs"
   },
   "dependencies": {
-    "zx": "^5.1.0"
+    "zx": "^5.2.0"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0"
   },
-  "scripts": {},
+  "scripts": {
+    "test": ""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bsorrentino/zx-powerapps-cli.git"

@@ -1,4 +1,4 @@
-#!/usr/bin/env zx
+#!/usr/bin/env node
 /**
  * arguments
  * @argument authindex <index of auth entry> optional
