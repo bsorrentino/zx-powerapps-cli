@@ -1,3 +1,10 @@
+[![npm](https://img.shields.io/npm/v/@bsorrentino/zx-powerapps-cli.svg)](https://www.npmjs.com/package/@bsorrentino/zx-powerapps-cli)&nbsp;
+<img src="https://img.shields.io/github/forks/bsorrentino/zx-powerapps-cli.svg">&nbsp;
+<img src="https://img.shields.io/github/stars/bsorrentino/zx-powerapps-cli.svg">&nbsp;
+<a href="https://github.com/bsorrentino/zx-powerapps-cli/issues">
+<img src="https://img.shields.io/github/issues/bsorrentino/zx-powerapps-cli.svg"></a>&nbsp;
+![npm publishing](https://github.com/bsorrentino/zx-powerapps-cli/actions/workflows/npm-publish.yml/badge.svg)
+
 # zx-powerapps-cli
 
 [ZX] scripts to simplify interactive [Powerapps CLI (pac)] usage
