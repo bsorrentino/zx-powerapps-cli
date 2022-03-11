@@ -40,7 +40,7 @@ const  publishCustomization = async () => {
 }
 
 
-async function exportSolution() {
+async function main() {
     try {
         await askForAuthProfile()
 
@@ -106,4 +106,4 @@ async function exportSolution() {
     }
 }
 
-exportSolution()
+main()
