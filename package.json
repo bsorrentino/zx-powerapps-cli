@@ -1,6 +1,6 @@
 {
   "name": "@bsorrentino/zx-powerapps-cli",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "zx scripts to simplify powerapps cli (PAC) usage",
   "files": [
     "*.mjs"
@@ -14,7 +14,8 @@
     "zx": "^5.2.0"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "standard-version": "^9.3.2"
   },
   "scripts": {
     "test": ""
@@ -41,5 +42,53 @@
   },
   "engines": {
     "node": ">= 12"
+  },
+  "standard-version": {
+    "skip": {
+      "changelog": false,
+      "bump": false,
+      "commit": false,
+      "tag": true
+    },
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "section": "Documentation"
+      },
+      {
+        "type": "style",
+        "hidden": true
+      },
+      {
+        "type": "refactor",
+        "section": "Refactoring"
+      },
+      {
+        "type": "perf",
+        "hidden": true
+      },
+      {
+        "type": "test",
+        "hidden": true
+      },
+      {
+        "type": "build",
+        "section": "Build"
+      }
+    ],
+    "commitUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/commits/{{hash}}",
+    "compareUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/compare/{{previousTag}}...{{currentTag}}"
   }
 }

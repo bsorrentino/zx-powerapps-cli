@@ -23,13 +23,34 @@ export const askForSolutionFolder = async ( solutionList = false ) => {
     return question('solution folder: ')
 }
 
-export const askForUpdateVersion = async ( solutionPath, solutionVer ) => {
+
+export const askForUpdateVersion = async ( {
+    name, 
+    ver,
+    updateOnline
+} ) => {
     
-    const update = await question(`update version ${solutionVer ?? ''} (Y/n)?`)
-    if (update !== 'n' && update !== 'N') {
+    const verToken = ver.split('.')
+    if( verToken.length === 0 ) return // GUARD
+    
+    const lastToken =  verToken.length - 1
+    let revision = parseInt( verToken[lastToken] )
+    if (isNaN(revision)) return // GUARD
+
+    verToken[lastToken] = `${++revision}`
+    const newVersion = verToken.join('.')
+
+    const increment = await question(`increment current revision to ${newVersion}: (Y/n)`)
+    if (increment !== 'n' && increment !== 'N') {
+          
+        if( updateOnline ) {
+            await $`pac solution online-version --solution-name ${name} --solution-version ${newVersion}`
+            console.log( 'online version updated to', newVersion )
+        }
         // update version
-        cd( path.join( solutionPath, 'Other' ) )
-        await $`pac solution version -s solution`
+        cd( path.join( name, 'Other' ) )
+        await $`pac solution version  --revisionversion ${revision}`
         cd( path.join( '..', '..' ) )
+        console.log( 'version updated to', newVersion )
     }
 }

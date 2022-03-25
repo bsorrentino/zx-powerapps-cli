@@ -32,7 +32,7 @@ const askForPackageType = async () => {
 
         const solution = await askForSolutionFolder()
 
-        await askForUpdateVersion( solution )
+        // await askForUpdateVersion( { name:solution } )
 
         const package_type = await askForPackageType()
 
