@@ -23,11 +23,12 @@ Export solution from powerapps a environment unpacking and saving it on local fi
 
 #### Usage 
 ```
-npx zx-export-solution [--authindex <n>]
+npx zx-export-solution [--authindex <n>] [--solution <solution name>]
 ```
 Such command interactively ask for :
 1. Authentication profile's index (if not provided on command line).
-1. Solution's name that you've to export. Take note that available solutions will be displayed before 
+1. Solution's name that you've to export (if not provided on command line). 
+   > Take note that available solutions will be displayed before
 1. Publish customization
 
 ### zx-import-solution
