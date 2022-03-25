@@ -85,7 +85,10 @@ const  publishCustomization = async () => {
                     await $`pac solution unpack --zipfile ${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
                 }  
                               
-                await askForUpdateVersion( solution_to_export.name, solution_to_export.ver )
+                // await askForUpdateVersion({ 
+                //     ...solution_to_export, 
+                //     updateOnline:true  
+                // })
 
             }
             else {

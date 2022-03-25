@@ -29,7 +29,6 @@ Such command interactively ask for :
 1. Authentication profile's index (if not provided on command line).
 1. Solution's name that you've to export. Take note that available solutions will be displayed before 
 1. Publish customization
-1. Update version
 
 ### zx-import-solution
 Pack solution from local file system and import it in a powerapps environment 
@@ -41,7 +40,6 @@ npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--packa
 Such command interactively ask for :
 1. Authentication profile's index (if not provided on command line).
 1. Solution's folder (if not provided on command line) 
-1. Update version
 
 ### zx-unpack-msapps
 Unpack canvas app bundles (.msapp) contained in an exported solution
