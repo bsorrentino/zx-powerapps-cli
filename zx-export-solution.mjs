@@ -39,7 +39,8 @@ const  publishCustomization = async () => {
     }
 }
 
-(async () => {
+
+async function main() {
     try {
         await askForAuthProfile()
 
@@ -65,9 +66,11 @@ const  publishCustomization = async () => {
 
         if (solutions.length > 0) {
 
-            const choice = await question('Choose solution: ', {
-                choices: solutions.map(s => s.name)
-            })
+            const choice = ( argv.solution ) ?
+                argv.solution :
+                await question('Choose solution: ', {
+                    choices: solutions.map(s => s.name)
+                })
 
             const solution_to_export = solutions.find(s => s.name === choice)
             if (solution_to_export) {
@@ -104,4 +107,6 @@ const  publishCustomization = async () => {
     }
     finally {
     }
-})()
+}
+
+main()
