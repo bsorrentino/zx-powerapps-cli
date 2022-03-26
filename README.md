@@ -15,7 +15,7 @@
 npm install @bsorrentino/zx-powerapps-cli --save-dev
 ```
 
-## Commands
+## Scripts
 
 ### zx-export-solution
 Export solution from powerapps a environment unpacking and saving it on local file system.
@@ -40,7 +40,20 @@ npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--packa
 ```
 Such command interactively ask for :
 1. Authentication profile's index (if not provided on command line).
-1. Solution's folder (if not provided on command line) 
+1. Local solution's folder (if not provided on command line) 
+
+### zx-version-bump
+Update local and remote solution's version
+
+#### Usage 
+```
+npx zx-version-bump [--authindex <n>] [--solution <solution folder>]
+```
+Such command interactively ask for :
+1. Local solution's folder (if not provided on command line) 
+1. Version bump strategy **increment build version** / **increment revision version**
+1. Authentication profile's index (if not provided on command line).
+1. Update online version with the same version of the local one
 
 ### zx-unpack-msapps
 Unpack canvas app bundles (.msapp) contained in an exported solution
