@@ -9,8 +9,7 @@
 import 'zx/globals'
 import { 
     askForAuthProfile, 
-    askForSolutionFolder,
-    askForUpdateVersion
+    askForSolutionFolder
 } from './zx-solution-utils.mjs'
 
 const askForPackageType = async () => {

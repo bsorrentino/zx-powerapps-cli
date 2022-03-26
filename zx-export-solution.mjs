@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 import 'zx/globals'
 import { 
-    askForAuthProfile,
-    askForUpdateVersion 
- } from './zx-solution-utils.mjs'
+    askForAuthProfile 
+} from './zx-solution-utils.mjs'
 
 const DELETE_SOLUTION_ZIPPED = true
 
@@ -53,8 +52,8 @@ async function main() {
 
             for (let i = 0; i < rows.length; ++i) {
                 //console.log( `${i}-${rows[i]}` )
-                const exp = /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig
-                const m = exp.exec(rows[i])
+                const lineRegExp = /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig
+                const m = lineRegExp.exec(rows[i])
                 //console.log( i, m)
                 if (m !== null) {          
                     solutions.push({ name: m[1], ver: m[3] })
@@ -68,7 +67,7 @@ async function main() {
 
             const choice = ( argv.solution ) ?
                 argv.solution :
-                await question('Choose solution: ', {
+                await question('solution unique name: ', {
                     choices: solutions.map(s => s.name)
                 })
 
