@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/mokkapps/changelog-generator-demo/compare/v1.2.0...v1.3.0) (2022-03-26)
+
+
+### Features
+
+* **askforsolutionfolder:** check solution folder existence [#1](https://github.com/bsorrentino/zx-powerapps-cli/issues/1) ([f15b773](https://github.com/mokkapps/changelog-generator-demo/commits/f15b773373011222c468a858ad7939b43c5eecb5))
+* **version-bump:** complete implementation for version bump ([27ac5e8](https://github.com/mokkapps/changelog-generator-demo/commits/27ac5e8304d1135a8f7e0095b7f72d1ef2167a44))
+
+
+### Build
+
+* add new script as binary ([e506e98](https://github.com/mokkapps/changelog-generator-demo/commits/e506e98863fbd33c21c6d161054ecce7ea417c35))
+* upgrade zx dep ([8a27a53](https://github.com/mokkapps/changelog-generator-demo/commits/8a27a5362f52d3090a6251fa038c6b00b0dd664d))
+
 ## [1.2.0](https://github.com/mokkapps/changelog-generator-demo/compare/v1.1.0...v1.2.0) (2022-03-25)
 
 ### [1.0.5](https://github.com/mokkapps/changelog-generator-demo/compare/v1.0.4...v1.0.5) (2022-03-11)
