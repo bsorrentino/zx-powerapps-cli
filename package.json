@@ -8,7 +8,8 @@
   "bin": {
     "zx-unpack-msapps": "./zx-unpack-msapps.mjs",
     "zx-export-solution": "./zx-export-solution.mjs",
-    "zx-import-solution": "./zx-import-solution.mjs"
+    "zx-import-solution": "./zx-import-solution.mjs",
+    "zx-version-bump": "./zx-import-solution.mjs"
   },
   "dependencies": {
     "zx": "^6.0.7"
