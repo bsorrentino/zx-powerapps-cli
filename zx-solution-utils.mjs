@@ -1,4 +1,5 @@
 
+import { chalk, fs } from 'zx'
 import 'zx/globals'
 
 export const askForAuthProfile = async () => {
@@ -16,13 +17,29 @@ export const askForAuthProfile = async () => {
 
 
 export const askForSolutionFolder = async ( solutionList = false ) => {
+    let solution
     if( argv.solution ) {
-        return argv.solution
+         solution = argv.solution
     }
-    if( solutionList) await $`pac solution list`
-    return question('solution folder: ')
-}
+    else {
+        if( solutionList) await $`pac solution list`
+        solution = await question('solution folder: ')
+    }
+    for(;;) {
+        try {
+            const stats = await fs.stat( solution )
+            if( stats.isDirectory() ) 
+                return solution
 
+            console.log( chalk.red(`solution folder '${solution}' is not a directory!`))            
+        }
+        catch( e ) {
+            console.log( chalk.red(`solution folder '${solution}' doesn't exist!`))
+        }
+        solution = await question('solution folder: ')
+    }
+    
+}
 
 export const askForUpdateVersion = async ( {
     name, 
