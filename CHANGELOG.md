@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/mokkapps/changelog-generator-demo/compare/v1.3.1...v1.4.0) (2022-03-29)
+
+
+### Bug Fixes
+
+* **zx-version-bump:** set the right script for zx-version-bump ([f5e530c](https://github.com/mokkapps/changelog-generator-demo/commits/f5e530ca82d57264b3b7a92150f09557868cdbf6))
+
 ### [1.3.1](https://github.com/mokkapps/changelog-generator-demo/compare/v1.3.0...v1.3.1) (2022-03-26)
 
 

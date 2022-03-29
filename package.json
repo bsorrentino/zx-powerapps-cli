@@ -1,6 +1,6 @@
 {
   "name": "@bsorrentino/zx-powerapps-cli",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "zx scripts to simplify powerapps cli (PAC) usage",
   "files": [
     "*.mjs"
@@ -9,7 +9,7 @@
     "zx-unpack-msapps": "./zx-unpack-msapps.mjs",
     "zx-export-solution": "./zx-export-solution.mjs",
     "zx-import-solution": "./zx-import-solution.mjs",
-    "zx-version-bump": "./zx-import-solution.mjs"
+    "zx-version-bump": "./zx-version-bump.mjs"
   },
   "dependencies": {
     "zx": "^6.0.7"
