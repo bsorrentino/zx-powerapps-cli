@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'zx/globals'
 import { 
-    askForAuthProfile 
+    askForAuthProfile, getProcessOutputAsList, CaputeProcessOutput
 } from './zx-solution-utils.mjs'
 
 const DELETE_SOLUTION_ZIPPED = true
@@ -41,27 +41,23 @@ const  publishCustomization = async () => {
 
 async function main() {
     try {
-        await askForAuthProfile()
+        const selectedProfile = await askForAuthProfile()
 
-        const { stdout } = $`pac solution list`
+        console.log( 'selectedProfile', selectedProfile )
 
-        const solutions = []
+        const solutionListOutput = new CaputeProcessOutput()
+        
+        // const rows = await getProcessOutputAsList( $`pac solution list` )
+        await $`pac solution list`.pipe( solutionListOutput )
+        console.log( solutionListOutput.toString() )
 
-        for await (let chunk of stdout) {
-            const rows = chunk.toString().split('\n').map( r => r.trim() ).filter( r => r.length > 0 )
-
-            for (let i = 0; i < rows.length; ++i) {
-                //console.log( `${i}-${rows[i]}` )
-                const lineRegExp = /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig
-                const m = lineRegExp.exec(rows[i])
-                //console.log( i, m)
-                if (m !== null) {          
-                    solutions.push({ name: m[1], ver: m[3] })
-                }
-            }
-        }
-
-        //solutions.forEach( s => console.log( s ))
+        const solutions = 
+            solutionListOutput
+             .toList()
+             .map( row => 
+                /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row) )
+             .filter( m => m != null )
+             .map( m => ({ name: m[1], ver: m[3] }) )
 
         if (solutions.length > 0) {
 
