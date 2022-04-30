@@ -5,36 +5,40 @@ import 'zx/globals'
 export const askForAuthProfile = async () => {
 
     const output = new CaputeProcessOutput()
-    let index = null
     
     if( argv.authindex ) {
-        await $`pac auth list`.pipe(output)
-        await $`pac auth select --index ${argv.authindex}`  
-        index = argv.authindex
+        await $`pac auth select --index ${argv.authindex}`.pipe(output)
+        const rows = output.toList()  
+                        .map( row => 
+                                /^[*]\s+([\w\d]+)\s+([^\s.]+)/ig.exec(row) )
+                        .filter( m => m != null )
+        return rows[0][2]                
     }
-    else {
-        await $`pac auth list`.pipe(output)
-        console.log( output.toString() )
-
-        const choice = await question('choose profile index (enter for confirm active one): ')
-        if( choice.trim().length > 0 ) {
-            await $`pac auth select --index ${choice}`  
-            index = choice
-        }
-    }
-
-    const rows = output.toList()        
-        .map( row => 
-            /^\[(\d+)\]\s+([*]?)\s+([\w\d]+)\s+([^\s.]+)/ig.exec(row) )
-        .filter( m => m != null )
-
-    const token = ( index === null  )
-                ? rows.find( m => m[2]==='*' )
-                : rows.find( m => m[1]===index )
     
+    await $`pac auth list`.pipe(output)
+    console.log( output.toString() )
+
+    const choice = await question('choose profile index (enter for confirm active one): ')
+    if( choice.trim().length > 0 ) {
+        await $`pac auth select --index ${choice}`  
+    }
+    
+    const token = output.toList()        
+                    .map( row => 
+                        /^\[(\d+)\]\s+([*]?)\s+([\w\d]+)\s+([^\s.]+)/ig.exec(row) )
+                    .filter( m => m != null )
+                    .find( m => m[2]==='*' )
+
     return token[4]                
 }
 
+/**
+ * [askForSolutionFolder description]
+ *
+ * @param   {boolean} [solutionList=false]  [solutionList description]
+ *
+ * @return  {Promise<string|undefined>}                [return description]
+ */
 export const askForSolutionFolder = async ( solutionList = false ) => {
     let solution
     if( argv.solution ) {
@@ -77,6 +81,9 @@ export const getProcessOutputAsList = async ( processOutput ) => {
     return result
 }
 
+/**
+ * Writeable stream that capure output in a string
+ */
 export class CaputeProcessOutput extends Writable {
 
     constructor() {
@@ -100,3 +107,27 @@ export class CaputeProcessOutput extends Writable {
                     .filter( r => r.length > 0 )
     }
 }
+
+/**
+ * prompt for question that require Yes or No. default is Yes
+ * 
+ * @param   {string}  message  message to display
+ *
+ * @return   {Promise<boolean>}         return true or false 
+ */
+export const askYesOrNo = async ( message ) => {
+    const result = await question(`${message} (Y/n)? `)
+    return (result !== 'n' && result !== 'N') 
+} 
+
+/**
+ * prompt for question that require Yes or No. default is No
+ * 
+ * @param   {string}  message  message to display
+ *
+ * @return  {Promise<boolean>}          return true or false 
+ */
+ export const askNoOrYes = async ( message ) => {
+    const result = await question(`${message} (y/N)? `)
+    return (result === 'y' || result === 'Y') 
+} 
