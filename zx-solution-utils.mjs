@@ -1,6 +1,7 @@
 
 import { Writable } from 'stream'
 import 'zx/globals'
+import {startSpinner} from 'zx/experimental'
 
 export const askForAuthProfile = async () => {
 
@@ -11,7 +12,7 @@ export const askForAuthProfile = async () => {
         const rows = output.toList()  
                         .map( row => 
                                 /^[*]\s+([\w\d]+)\s+([^\s.]+)/ig.exec(row) )
-                        .filter( m => m != null )
+                        .filter( m => m !== null )
         return rows[0][2]                
     }
     
@@ -26,10 +27,9 @@ export const askForAuthProfile = async () => {
     const token = output.toList()        
                     .map( row => 
                         /^\[(\d+)\]\s+([*]?)\s+([\w\d]+)\s+([^\s.]+)/ig.exec(row) )
-                    .filter( m => m != null )
-                    .find( m => m[2]==='*' )
+                    .filter( m => m !== null &&  m[2]==='*'  )
 
-    return token[4]                
+    return token[0][4]                
 }
 
 /**
@@ -131,3 +131,41 @@ export const askYesOrNo = async ( message ) => {
     const result = await question(`${message} (y/N)? `)
     return (result === 'y' || result === 'Y') 
 } 
+
+/**
+ * return settings file path
+ *
+ * @param   {string}  solutionFolder   [solutionFolder description]
+ * @param   {string}  selectedProfile  [selectedProfile description]
+ *
+ * @return  {string}                   setting file's path
+ */
+export const getSettingsFile = (solutionFolder,selectedProfile) => 
+    path.join( `${solutionFolder}_settings`, `${selectedProfile}_settings.json` )
+
+/**
+ * This callback type is called `Task`
+ * 
+ * @typeparam {T} T
+ * @callback Task
+ * @return {Promise<T>} return
+ */
+
+/**
+ * [startTaskWithSpinner description]
+ *
+ * @template {T} T
+ * @param   {Task}  task  the task
+ *
+ * @return  {Promise<T>}        [return description]
+ */
+export const startTaskWithSpinner =  async ( task ) => {
+    const stop = startSpinner()
+
+    return new Promise( (resolve, reject) => {
+            task().then( r => resolve(r) )
+                 .catch( e => reject(e) )
+                 .finally( () => stop() )
+    })
+
+}
