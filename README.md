@@ -7,7 +7,7 @@
 
 # zx-powerapps-cli
 
-[ZX] scripts to simplify interactive [Powerapps CLI (pac)] usage
+[ZX] scripts to simplify interactive [Powerapps CLI] (`PAC`) usage
 
 ## Getting started 
 
@@ -30,6 +30,8 @@ Such command interactively ask for :
 1. Solution's name that you've to export (if not provided on command line). 
    > Take note that available solutions will be displayed before
 1. Publish customization
+1. Create settings
+   > the file generated will be `<solution>_settings/<auth profile>_settings.json`
 
 ### zx-import-solution
 Pack solution from local file system and import it in a powerapps environment 
@@ -41,6 +43,8 @@ npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--packa
 Such command interactively ask for :
 1. Authentication profile's index (if not provided on command line).
 1. Local solution's folder (if not provided on command line) 
+1. Use settings file
+   > This will be asked only if the settings file `<solution>_settings/<auth profile>_settings.json` exists 
 
 ### zx-version-bump
 Update local and remote solution's version
@@ -65,5 +69,11 @@ npx zx-unpack-msapps [--solution <solution folder>]
 Such command interactively ask for :
 1. Solution's folder (if not provided on command line) 
 
+## Reference 
+
+* [Powerapps CLI](https://docs.microsoft.com/en-us/power-apps/developer/data-platform/powerapps-cli#common-commands)
+* [Generating Solution Settings File via the Microsoft Power Platform CLI](https://crmchap.co.uk/generating-solution-settings-file-via-the-microsoft-power-platform-cli/)
+
+[Powerapps CLI]: https://docs.microsoft.com/en-us/power-apps/developer/data-platform/powerapps-cli#common-commands
 [ZX]: https://www.npmjs.com/package/zx
 [Powerapps CLI (pac)]: https://docs.microsoft.com/en-us/powerapps/developer/data-platform/powerapps-cli
