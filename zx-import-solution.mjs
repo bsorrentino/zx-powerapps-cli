@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 /**
- * arguments
+ * Pack solution from local file system and import it in a powerapps environment 
+ * 
  * @argument authindex <index of auth entry> optional
  * @argument solution <solutiion folder> optional 
  * @argument package Managed | Unmanaged | Both  default: Managed
  * 
  */
+
 import 'zx/globals'
 import { 
     askForAuthProfile, 
-    askForSolutionFolder
-} from './zx-solution-utils.mjs'
+    askForSolutionFolder,
+    askYesOrNo,
+    getSettingsFile} from './zx-solution-utils.mjs'
 
 const askForPackageType = async () => {
     if( argv.package ) {
@@ -24,35 +27,53 @@ const askForPackageType = async () => {
     return 'Managed'
 }
 
-(async () => {
+
+async function main() {
+    
     try {
 
-        await askForAuthProfile( )
+        const selectedProfile = await askForAuthProfile( )
 
         const solution = await askForSolutionFolder()
 
-        // await askForUpdateVersion( { name:solution } )
+        let settingsFile = null
 
-        const package_type = await askForPackageType()
+        const candidateSettingsFile = getSettingsFile( solution, selectedProfile )
 
-        switch( package_type ) {
-            case 'Managed': {
-                await $`pac solution pack --zipfile /tmp/${solution}_managed.zip -f ${solution} -p Managed -aw`  
-                await $`pac solution import -p /tmp/${solution}_managed.zip -f -pc -a`        
+        try {
+            const stats = await fs.stat( candidateSettingsFile )
+            if( stats.isFile() ) {
+                if( await askYesOrNo('do import settings') ) {
+                    settingsFile = candidateSettingsFile
+                }
             }
-            break
-            case 'Unmanaged': {
-                await $`pac solution pack --zipfile /tmp/${solution}.zip -f ${solution} -p Unmanaged -aw`
-                await $`pac solution import -p /tmp/${solution}.zip -f -pc -a`        
-            }
-            break
-            case 'Both': {
-                await $`pac solution pack --zipfile /tmp/${solution}_both.zip -f ${solution} -p Both -aw`
-                await $`pac solution import -p /tmp/${solution}_both.zip -f -pc -a`        
-            }
-            break
+        }
+        catch( e ) {
+            // settings not found
+            console.info( chalk.yellow(`settings file '${candidateSettingsFile}' doesn't exist!`))
         }
 
+        const package_type = await askForPackageType()
+       
+        let importSolutionPath = null
+
+        switch( package_type ) {
+            case 'Unmanaged':
+                importSolutionPath = path.join( '/tmp', `${solution}.zip`)
+            break
+            case 'Managed':
+                importSolutionPath = path.join( '/tmp', `${solution}_managed.zip`)
+            break
+            case 'Both': 
+                importSolutionPath = path.join( '/tmp', `${solution}_both.zip`)
+            break
+        }
+        await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
+
+        if( settingsFile!==null )  
+            await $`pac solution import -p ${importSolutionPath} -f -pc -a --settings-file ${settingsFile}`  
+        else
+            await $`pac solution import -p ${importSolutionPath} -f -pc -a`  
         
     } catch (p) {
         if (p.exitCode)
@@ -62,4 +83,6 @@ const askForPackageType = async () => {
     }
     finally {
     }
-})()
+}
+
+main()

@@ -1,15 +1,31 @@
 #!/usr/bin/env node
+/**
+ * Export solution from powerapps a environment unpacking and saving it on local file system.
+ * Solution is exported in both **Managed** and **Unmanged** package type
+ * 
+ * @argument authindex <index of auth entry> optional
+ * @argument solution <remote solution unique name> optional 
+ * 
+ */
 import 'zx/globals'
-import { 
-    askForAuthProfile 
+import {
+    askForAuthProfile, askNoOrYes, askYesOrNo, CaputeProcessOutput, getSettingsFile, startTaskWithSpinner
 } from './zx-solution-utils.mjs'
 
 const DELETE_SOLUTION_ZIPPED = true
 
-async function exportSolution( solution_to_export, isManaged ) {
+/**
+ * export as managed solution
+ *
+ * @param   {{ name: string, ver: string}}  solution_to_export  [solution_to_export description]
+ * @param   {boolean}  isManaged 
+ *
+ * @return  {Promise<string>}                      final name
+ */
+async function exportSolution(solution_to_export, isManaged) {
 
     const file = `${solution_to_export.name}_${solution_to_export.ver.replace(/\./g, '_')}`
-    const finalName = (isManaged ) ? `${file}_managed.zip` : `${file}.zip`
+    const finalName = (isManaged) ? `${file}_managed.zip` : `${file}.zip`
 
     if (await fs.pathExists(finalName)) {
         const remove = await question(`remove file ${finalName} (Y/n)? `)
@@ -18,84 +34,117 @@ async function exportSolution( solution_to_export, isManaged ) {
         }
     }
 
-    if( DELETE_SOLUTION_ZIPPED ) {
-        await $`pac solution export --path ${solution_to_export.name}/${finalName} --name ${solution_to_export.name} ${ (isManaged) ? '--managed' : ''}`
+    if (DELETE_SOLUTION_ZIPPED) {
+        await $`pac solution export --path ${solution_to_export.name}/${finalName} --name ${solution_to_export.name} ${(isManaged) ? '--managed' : ''}`
     }
     else {
-        await $`pac solution export --path ${finalName} --name ${solution_to_export.name} ${ (isManaged) ? '--managed' : ''}`
+        await $`pac solution export --path ${finalName} --name ${solution_to_export.name} ${(isManaged) ? '--managed' : ''}`
     }
 
     return finalName
 }
 
-const exportSolutionManaged = async (solution_to_export) => exportSolution( solution_to_export, true /* Managed */ )
-const exportSolutionUnmanaged = async (solution_to_export) => exportSolution( solution_to_export, false /* Unmanaged */ )
-const  publishCustomization = async () => {
-    
-    const publish = await question('publish customizations (Y/n)? ')
-    if (publish !== 'n' && publish !== 'N') {
+/**
+ * export as managed solution
+ *
+ * @param   {{ name: string, ver: string}}  solution_to_export  [solution_to_export description]
+ *
+ * @return  {Promise<string>}                      final name
+ */
+const exportSolutionManaged = async (solution_to_export) => exportSolution(solution_to_export, true /* Managed */)
+/**
+ * export as Unmanaged solution
+ *
+ * @param   {{ name: string, ver: string}}  solution_to_export  [solution_to_export description]
+ *
+ * @return  {Promise<string>}                      final name
+ */
+const exportSolutionUnmanaged = async (solution_to_export) => exportSolution(solution_to_export, false /* Unmanaged */)
+/**
+ * Publish Customization
+ *
+ * @return  {Promise<void>}  [return description]
+ */
+const publishCustomization = async () => {
+    if (await askYesOrNo('publish customizations'))
         await $`pac solution publish`
-    }
 }
 
+/**
+ * create settings
+ *
+ * @param   {string}  solutionFolder   [solutionFolder description]
+ * @param   {string}  selectedProfile  [selectedProfile description]
+ *
+ * @return  {Promise<void>}                   
+ */
+const createSettings = async (solutionFolder, selectedProfile) => {
+    const settingsFile = getSettingsFile(solutionFolder, selectedProfile)
+
+    await $`pac solution create-settings -f ${solutionFolder} -s ${settingsFile}`
+}
 
 async function main() {
+
     try {
-        await askForAuthProfile()
+        const selectedProfile = await askForAuthProfile()
 
-        const { stdout } = $`pac solution list`
+        // console.log( `selectedProfile: [${selectedProfile}]` )
 
-        const solutions = []
+        const solutionListOutput = new CaputeProcessOutput()
 
-        for await (let chunk of stdout) {
-            const rows = chunk.toString().split('\n').map( r => r.trim() ).filter( r => r.length > 0 )
-
-            for (let i = 0; i < rows.length; ++i) {
-                //console.log( `${i}-${rows[i]}` )
-                const lineRegExp = /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig
-                const m = lineRegExp.exec(rows[i])
-                //console.log( i, m)
-                if (m !== null) {          
-                    solutions.push({ name: m[1], ver: m[3] })
-                }
-            }
-        }
-
-        //solutions.forEach( s => console.log( s ))
-
-        if (solutions.length > 0) {
-
-            const choice = ( argv.solution ) ?
-                argv.solution :
-                await question('solution unique name: ', {
-                    choices: solutions.map(s => s.name)
-                })
-
-            const solution_to_export = solutions.find(s => s.name === choice)
-            if (solution_to_export) {
-
-                await publishCustomization()
-
-                await exportSolutionManaged( solution_to_export )
-
-                const file = await exportSolutionUnmanaged( solution_to_export )
-
-                if( DELETE_SOLUTION_ZIPPED ) {
-                    await $`pac solution unpack --zipfile ${solution_to_export.name}/${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
-                }
-                else {
-                    await $`pac solution unpack --zipfile ${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
-                }  
-                              
-                // await askForUpdateVersion({ 
-                //     ...solution_to_export, 
-                //     updateOnline:true  
-                // })
-
+        // const rows = await getProcessOutputAsList( $`pac solution list` )
+        await startTaskWithSpinner(async () => {
+            if (argv.solution) {
+                await quiet($`pac solution list`.pipe(solutionListOutput))
             }
             else {
-                console.error(`solution '${choice}' is not valid!`)
+                await $`pac solution list`.pipe(solutionListOutput)
+                console.log(solutionListOutput.toString())
             }
+        })
+
+        const solutions =
+            solutionListOutput
+                .toList()
+                .map(row =>
+                    /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row))
+                .filter(m => m != null)
+                .map(m => ({ name: m[1], ver: m[3] }))
+
+        if (solutions.length <= 0) {
+            return
+        }
+
+        const choice = (argv.solution) ?
+            argv.solution :
+            await question('solution unique name: ', {
+                choices: solutions.map(s => s.name)
+            })
+
+        const solution_to_export = solutions.find(s => s.name === choice)
+        if (solution_to_export) {
+
+            await publishCustomization()
+
+            await exportSolutionManaged(solution_to_export)
+
+            const file = await exportSolutionUnmanaged(solution_to_export)
+
+            if (DELETE_SOLUTION_ZIPPED) {
+                await $`pac solution unpack --zipfile ${solution_to_export.name}/${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
+            }
+            else {
+                await $`pac solution unpack --zipfile ${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
+            }
+
+            if (await askNoOrYes('export settings')) {
+                await createSettings(solution_to_export.name, selectedProfile)
+            }
+
+        }
+        else {
+            console.error(`solution '${choice}' is not valid!`)
         }
 
     } catch (p) {
@@ -103,8 +152,6 @@ async function main() {
             console.log(`error occurred code: ${p.exitCode} error: ${p.stderr}`)
         else
             console.error(p)
-    }
-    finally {
     }
 }
 
