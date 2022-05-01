@@ -1,16 +1,31 @@
 #!/usr/bin/env node
-import { path } from 'zx'
+/**
+ * Export solution from powerapps a environment unpacking and saving it on local file system.
+ * Solution is exported in both **Managed** and **Unmanged** package type
+ * 
+ * @argument authindex <index of auth entry> optional
+ * @argument solution <remote solution unique name> optional 
+ * 
+ */
 import 'zx/globals'
-import { 
-    askForAuthProfile, askNoOrYes, askYesOrNo, CaputeProcessOutput
+import {
+    askForAuthProfile, askNoOrYes, askYesOrNo, CaputeProcessOutput, getSettingsFile, startTaskWithSpinner
 } from './zx-solution-utils.mjs'
 
 const DELETE_SOLUTION_ZIPPED = true
 
-async function exportSolution( solution_to_export, isManaged ) {
+/**
+ * export as managed solution
+ *
+ * @param   {{ name: string, ver: string}}  solution_to_export  [solution_to_export description]
+ * @param   {boolean}  isManaged 
+ *
+ * @return  {Promise<string>}                      final name
+ */
+async function exportSolution(solution_to_export, isManaged) {
 
     const file = `${solution_to_export.name}_${solution_to_export.ver.replace(/\./g, '_')}`
-    const finalName = (isManaged ) ? `${file}_managed.zip` : `${file}.zip`
+    const finalName = (isManaged) ? `${file}_managed.zip` : `${file}.zip`
 
     if (await fs.pathExists(finalName)) {
         const remove = await question(`remove file ${finalName} (Y/n)? `)
@@ -19,22 +34,41 @@ async function exportSolution( solution_to_export, isManaged ) {
         }
     }
 
-    if( DELETE_SOLUTION_ZIPPED ) {
-        await $`pac solution export --path ${solution_to_export.name}/${finalName} --name ${solution_to_export.name} ${ (isManaged) ? '--managed' : ''}`
+    if (DELETE_SOLUTION_ZIPPED) {
+        await $`pac solution export --path ${solution_to_export.name}/${finalName} --name ${solution_to_export.name} ${(isManaged) ? '--managed' : ''}`
     }
     else {
-        await $`pac solution export --path ${finalName} --name ${solution_to_export.name} ${ (isManaged) ? '--managed' : ''}`
+        await $`pac solution export --path ${finalName} --name ${solution_to_export.name} ${(isManaged) ? '--managed' : ''}`
     }
 
     return finalName
 }
 
-const exportSolutionManaged = async (solution_to_export) => exportSolution( solution_to_export, true /* Managed */ )
-const exportSolutionUnmanaged = async (solution_to_export) => exportSolution( solution_to_export, false /* Unmanaged */ )
-const  publishCustomization = async () => { 
-        if( await askYesOrNo('publish customizations') ) 
-            await $`pac solution publish`
-    }
+/**
+ * export as managed solution
+ *
+ * @param   {{ name: string, ver: string}}  solution_to_export  [solution_to_export description]
+ *
+ * @return  {Promise<string>}                      final name
+ */
+const exportSolutionManaged = async (solution_to_export) => exportSolution(solution_to_export, true /* Managed */)
+/**
+ * export as Unmanaged solution
+ *
+ * @param   {{ name: string, ver: string}}  solution_to_export  [solution_to_export description]
+ *
+ * @return  {Promise<string>}                      final name
+ */
+const exportSolutionUnmanaged = async (solution_to_export) => exportSolution(solution_to_export, false /* Unmanaged */)
+/**
+ * Publish Customization
+ *
+ * @return  {Promise<void>}  [return description]
+ */
+const publishCustomization = async () => {
+    if (await askYesOrNo('publish customizations'))
+        await $`pac solution publish`
+}
 
 /**
  * create settings
@@ -44,12 +78,11 @@ const  publishCustomization = async () => {
  *
  * @return  {Promise<void>}                   
  */
-const createSettings = async ( solutionFolder, selectedProfile ) => {
-
-    const settingsFile = path.join( `${solutionFolder}_settings`, `${selectedProfile}_settings.json` )
+const createSettings = async (solutionFolder, selectedProfile) => {
+    const settingsFile = getSettingsFile(solutionFolder, selectedProfile)
 
     await $`pac solution create-settings -f ${solutionFolder} -s ${settingsFile}`
-} 
+}
 
 async function main() {
 
@@ -59,24 +92,31 @@ async function main() {
         // console.log( `selectedProfile: [${selectedProfile}]` )
 
         const solutionListOutput = new CaputeProcessOutput()
-        
-        // const rows = await getProcessOutputAsList( $`pac solution list` )
-        await $`pac solution list`.pipe( solutionListOutput )
-        console.log( solutionListOutput.toString() )
 
-        const solutions = 
+        // const rows = await getProcessOutputAsList( $`pac solution list` )
+        await startTaskWithSpinner(async () => {
+            if (argv.solution) {
+                await quiet($`pac solution list`.pipe(solutionListOutput))
+            }
+            else {
+                await $`pac solution list`.pipe(solutionListOutput)
+                console.log(solutionListOutput.toString())
+            }
+        })
+
+        const solutions =
             solutionListOutput
-             .toList()
-             .map( row => 
-                /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row) )
-             .filter( m => m != null )
-             .map( m => ({ name: m[1], ver: m[3] }) )
+                .toList()
+                .map(row =>
+                    /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row))
+                .filter(m => m != null)
+                .map(m => ({ name: m[1], ver: m[3] }))
 
         if (solutions.length <= 0) {
             return
         }
 
-        const choice = ( argv.solution ) ?
+        const choice = (argv.solution) ?
             argv.solution :
             await question('solution unique name: ', {
                 choices: solutions.map(s => s.name)
@@ -87,25 +127,20 @@ async function main() {
 
             await publishCustomization()
 
-            await exportSolutionManaged( solution_to_export )
+            await exportSolutionManaged(solution_to_export)
 
-            const file = await exportSolutionUnmanaged( solution_to_export )
+            const file = await exportSolutionUnmanaged(solution_to_export)
 
-            if( DELETE_SOLUTION_ZIPPED ) {
+            if (DELETE_SOLUTION_ZIPPED) {
                 await $`pac solution unpack --zipfile ${solution_to_export.name}/${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
             }
             else {
                 await $`pac solution unpack --zipfile ${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
-            }  
-             
-            if( await askNoOrYes( 'export settings' ) ) {
-                await createSettings( solution_to_export.name, selectedProfile )
             }
 
-            // await askForUpdateVersion({ 
-            //     ...solution_to_export, 
-            //     updateOnline:true  
-            // })
+            if (await askNoOrYes('export settings')) {
+                await createSettings(solution_to_export.name, selectedProfile)
+            }
 
         }
         else {
