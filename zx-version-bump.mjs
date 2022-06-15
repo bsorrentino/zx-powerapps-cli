@@ -69,14 +69,14 @@ async function versionBump() {
         const solutionFilePath = path.join( solution, 'Other' )
         const  { currentVersion, uniqueName } = await readSolutionInfo( path.join( solutionFilePath, 'Solution.xml'))
 
-        const increment = await question(`increment current version '${currentVersion}'? (Y/n)`)
+        const increment = await question(`increment current version '${currentVersion}'? (Y/n) `)
         if (increment !== 'n' && increment !== 'N') {
 
             let newVersion 
             // update version
             cd( solutionFilePath )
             
-            const increment = await question(`strategy : ([R]evision version/[b]uild version)`)
+            const increment = await question(`strategy : ([R]evision/[b]uild) `)
             if (increment !== 'b' && increment !== 'B') { 
 
                 const { val, ver } = incrementVersion( currentVersion, 3 )
@@ -95,7 +95,7 @@ async function versionBump() {
             }
             cd( path.join( '..', '..' ) )
 
-            const updateOnline = await question(`update online version to ${newVersion}: (Y/n)`)
+            const updateOnline = await (`update online version to ${newVersion}: (Y/n) `)
             if (updateOnline !== 'n' && updateOnline !== 'N') {
                 
                 await askForAuthProfile()
