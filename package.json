@@ -19,7 +19,7 @@
     "standard-version": "^9.3.2"
   },
   "scripts": {
-    "test": ""
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
