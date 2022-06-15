@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/mokkapps/changelog-generator-demo/compare/v1.5.0...v1.5.1) (2022-06-15)
+
+
+### Refactoring
+
+* **zx-version-bump:** add trailing space to question ([3a23ba2](https://github.com/mokkapps/changelog-generator-demo/commits/3a23ba255512f95982b19ac6f5a4d5d021e5aee1))
+
 ## [1.5.0](https://github.com/mokkapps/changelog-generator-demo/compare/v1.4.0...v1.5.0) (2022-05-01)
 
 
