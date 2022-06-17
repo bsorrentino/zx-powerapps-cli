@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.3](https://github.com/mokkapps/changelog-generator-demo/compare/v1.5.1...v1.5.3) (2022-06-17)
+
+
+### Bug Fixes
+
+* **settings:** set right auth profile as settings file name ([e7c0928](https://github.com/mokkapps/changelog-generator-demo/commits/e7c092883bfb130355206d9558517231f716d5f1))
+
+
+### Build
+
+* add 'release' script ([72761f7](https://github.com/mokkapps/changelog-generator-demo/commits/72761f7381ff18313b55e840e86657830d59a0de))
+
 ### [1.5.1](https://github.com/mokkapps/changelog-generator-demo/compare/v1.5.0...v1.5.1) (2022-06-15)
 
 
