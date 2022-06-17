@@ -2,10 +2,11 @@
 import { Writable } from 'stream'
 import 'zx/globals'
 import {startSpinner} from 'zx/experimental'
+import { $ } from 'zx'
 
 export const askForAuthProfile = async () => {
 
-    const output = new CaputeProcessOutput()
+    let output = new CaputeProcessOutput()
     
     if( argv.authindex ) {
         await $`pac auth select --index ${argv.authindex}`.pipe(output)
@@ -15,15 +16,20 @@ export const askForAuthProfile = async () => {
                         .filter( m => m !== null )
         return rows[0][2]                
     }
-    
+
     await $`pac auth list`.pipe(output)
     console.log( output.toString() )
 
     const choice = await question('choose profile index (enter for confirm active one): ')
     if( choice.trim().length > 0 ) {
         await $`pac auth select --index ${choice}`  
+        output = new CaputeProcessOutput()
+        const prev = $.verbose
+        $.verbose = false
+        await $`pac auth list`.pipe(output)
+        $.verbose = prev
     }
-    
+        
     const token = output.toList()        
                     .map( row => 
                         /^\[(\d+)\]\s+([*]?)\s+([\w\d]+)\s+([^\s.]+)/ig.exec(row) )
