@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.5.3](https://github.com/mokkapps/changelog-generator-demo/compare/v1.5.1...v1.5.3) (2022-06-17)
+### [1.5.2](https://github.com/mokkapps/changelog-generator-demo/compare/v1.5.1...v1.5.3) (2022-06-17)
 
 
 ### Bug Fixes
