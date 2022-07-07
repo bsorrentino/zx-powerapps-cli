@@ -12,17 +12,24 @@ import {
     askForAuthProfile, askNoOrYes, askYesOrNo, CaputeProcessOutput, getSettingsFile, startTaskWithSpinner
 } from './zx-solution-utils.mjs'
 
-const DELETE_SOLUTION_ZIPPED = true
+
+/**
+ * [askDeleteSolution description]
+ *
+ * @return  {[type]}  [return description]
+ */
+const keepSolutionZip = () => argv.keep_zip
 
 /**
  * export as managed solution
  *
  * @param   {{ name: string, ver: string}}  solution_to_export  [solution_to_export description]
- * @param   {boolean}  isManaged 
- *
+ * @param   {boolean} isManaged 
+ * @param   {boolean} keep_solution_zip
+ * 
  * @return  {Promise<string>}                      final name
  */
-async function exportSolution(solution_to_export, isManaged) {
+async function exportSolution(solution_to_export, isManaged, keep_solution_zip) {
 
     const file = `${solution_to_export.name}_${solution_to_export.ver.replace(/\./g, '_')}`
     const finalName = (isManaged) ? `${file}_managed.zip` : `${file}.zip`
@@ -34,11 +41,11 @@ async function exportSolution(solution_to_export, isManaged) {
         }
     }
 
-    if (DELETE_SOLUTION_ZIPPED) {
-        await $`pac solution export --path ${solution_to_export.name}/${finalName} --name ${solution_to_export.name} ${(isManaged) ? '--managed' : ''}`
+    if (keep_solution_zip) {
+        await $`pac solution export --path ${finalName} --name ${solution_to_export.name} ${(isManaged) ? '--managed' : ''}`
     }
     else {
-        await $`pac solution export --path ${finalName} --name ${solution_to_export.name} ${(isManaged) ? '--managed' : ''}`
+        await $`pac solution export --path ${solution_to_export.name}/${finalName} --name ${solution_to_export.name} ${(isManaged) ? '--managed' : ''}`
     }
 
     return finalName
@@ -51,7 +58,7 @@ async function exportSolution(solution_to_export, isManaged) {
  *
  * @return  {Promise<string>}                      final name
  */
-const exportSolutionManaged = async (solution_to_export) => exportSolution(solution_to_export, true /* Managed */)
+const exportSolutionManaged = async (solution_to_export, keep_solution_zip) => exportSolution(solution_to_export, true /* Managed */, keep_solution_zip)
 /**
  * export as Unmanaged solution
  *
@@ -59,7 +66,7 @@ const exportSolutionManaged = async (solution_to_export) => exportSolution(solut
  *
  * @return  {Promise<string>}                      final name
  */
-const exportSolutionUnmanaged = async (solution_to_export) => exportSolution(solution_to_export, false /* Unmanaged */)
+const exportSolutionUnmanaged = async (solution_to_export, keep_solution_zip) => exportSolution(solution_to_export, false /* Unmanaged */, keep_solution_zip)
 /**
  * Publish Customization
  *
@@ -127,15 +134,17 @@ async function main() {
 
             await publishCustomization()
 
-            await exportSolutionManaged(solution_to_export)
+            const keep_solution_zip = keepSolutionZip()
 
-            const file = await exportSolutionUnmanaged(solution_to_export)
+            await exportSolutionManaged(solution_to_export, keep_solution_zip)
 
-            if (DELETE_SOLUTION_ZIPPED) {
-                await $`pac solution unpack --zipfile ${solution_to_export.name}/${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
+            const file = await exportSolutionUnmanaged(solution_to_export, keep_solution_zip)
+
+            if (keep_solution_zip) {
+                await $`pac solution unpack --zipfile ${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
             }
             else {
-                await $`pac solution unpack --zipfile ${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
+                await $`pac solution unpack --zipfile ${solution_to_export.name}/${file} --folder ${solution_to_export.name} --packagetype Both --allowDelete`
             }
 
             if (await askNoOrYes('export settings')) {
