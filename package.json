@@ -15,8 +15,6 @@
     "zx": "^6.1.0"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0",
-    "standard-version": "^9.3.2"
   },
   "scripts": {
     "release": "standard-version"
@@ -36,11 +34,6 @@
     "url": "https://github.com/bsorrentino/zx-powerapps-cli/issues"
   },
   "homepage": "https://github.com/bsorrentino/zx-powerapps-cli#readme",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
   "engines": {
     "node": ">= 12"
   },
