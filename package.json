@@ -1,6 +1,6 @@
 {
   "name": "@bsorrentino/zx-powerapps-cli",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "zx scripts to simplify powerapps cli (PAC) usage",
   "files": [
     "*.mjs"
@@ -15,8 +15,6 @@
     "zx": "^6.1.0"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0",
-    "standard-version": "^9.3.2"
   },
   "scripts": {
     "release": "standard-version"
@@ -36,20 +34,15 @@
     "url": "https://github.com/bsorrentino/zx-powerapps-cli/issues"
   },
   "homepage": "https://github.com/bsorrentino/zx-powerapps-cli#readme",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
   "engines": {
     "node": ">= 12"
   },
   "standard-version": {
     "skip": {
-      "changelog": false,
-      "bump": false,
-      "commit": false,
-      "tag": true
+      "changelog":  false,
+      "bump":       true,
+      "commit":     true,
+      "tag":        true
     },
     "types": [
       {

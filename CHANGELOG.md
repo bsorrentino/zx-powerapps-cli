@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.3](https://github.com/mokkapps/changelog-generator-demo/compare/v1.5.2...v1.5.3) (2022-07-08)
+
+
+### Features
+
+* **export-solution:** support of 'keep_zip' argument ([d5caa51](https://github.com/mokkapps/changelog-generator-demo/commits/d5caa51118ee8184856d0467c31bccb65416021a)), closes [#3](https://github.com/bsorrentino/zx-powerapps-cli/issues/3)
+
+
+### Bug Fixes
+
+* remove package vulnerabilities ([52c2f11](https://github.com/mokkapps/changelog-generator-demo/commits/52c2f11d7e0c7aeadf82d7f5d63fb84cadbb816c))
+
+
+### Documentation
+
+* update readme ([3c3f4a4](https://github.com/mokkapps/changelog-generator-demo/commits/3c3f4a49a74b2ec1e2d94c3d9c3d14b5def7128c))
+
+
+### Refactoring
+
+* update comments ([8847f0f](https://github.com/mokkapps/changelog-generator-demo/commits/8847f0f9a8e3887f016ad1ca20fde395f29578e7))
+
 ### [1.5.2](https://github.com/mokkapps/changelog-generator-demo/compare/v1.5.1...v1.5.3) (2022-06-17)
 
 
