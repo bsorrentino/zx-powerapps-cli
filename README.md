@@ -23,15 +23,17 @@ Export solution from powerapps a environment unpacking and saving it on local fi
 
 #### Usage 
 ```
-npx zx-export-solution [--authindex <n>] [--solution <solution name>]
+npx zx-export-solution [--authindex <n>] [--solution <solution name>] [--keepzip]
 ```
-Such command interactively ask for :
-1. Authentication profile's index (if not provided on command line).
-1. Solution's name that you've to export (if not provided on command line). 
+##### Interactive arguments :
+1. **Authentication profile's index** (could provide it on command line using: `--authindex` ).
+1. **Solution's name** that you've to export (could provide it on command line using: `--solution` ). 
    > Take note that available solutions will be displayed before
-1. Publish customization
-1. Create settings
+1. **Publish customization**
+1. **Create settings**
    > the file generated will be `<solution>_settings/<auth profile>_settings.json`
+##### Non-Interactive arguments :
+* `--keepzip` : keeps original exported packages zip
 
 ### zx-import-solution
 Pack solution from local file system and import it in a powerapps environment 
@@ -40,10 +42,10 @@ Pack solution from local file system and import it in a powerapps environment
 ```
 npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--package Managed|Unmanaged|Both]
 ```
-Such command interactively ask for :
-1. Authentication profile's index (if not provided on command line).
-1. Local solution's folder (if not provided on command line) 
-1. Use settings file
+##### Interactive arguments :
+1. **Authentication profile's index** (could provide it on command line using: `--authindex` ).
+1. **Local solution's folder** (could provide it on command line using: `--solution` ). 
+1. **Use settings file**
    > This will be asked only if the settings file `<solution>_settings/<auth profile>_settings.json` exists 
 
 ### zx-version-bump
