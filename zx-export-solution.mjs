@@ -14,11 +14,11 @@ import {
 
 
 /**
- * [askDeleteSolution description]
+ * if keep the exported solution zip
  *
- * @return  {[type]}  [return description]
+ * @return  {[boolean]}  
  */
-const keepSolutionZip = () => argv.keep_zip
+const keepSolutionZip = () => argv.keepzip
 
 /**
  * export as managed solution
