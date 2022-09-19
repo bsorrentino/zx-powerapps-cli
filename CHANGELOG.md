@@ -4,6 +4,27 @@
 
 ## [Unreleased](https://gitlab.com/html-validate/html-validate/compare/Unreleased) ()
 
+
+### Bug Fixes
+
+ -  **zx-clone-flow**  avoid infinite loop on error ([3f7854de65443d7](https://gitlab.com/html-validate/html-validate/commit/3f7854de65443d78f890cb7542310e8a535838db))
+ -  **zx-clone-flow**  update shebang line ([8e3c3aa95a010e0](https://gitlab.com/html-validate/html-validate/commit/8e3c3aa95a010e02393054e617d44a987353df8f))
+
+### Documentation
+
+ -  update readme ([62f26af60b443ea](https://gitlab.com/html-validate/html-validate/commit/62f26af60b443eadea8538baedcc4d10cd9adca6))
+
+
+### ALM 
+
+ -  move to next release version ([e4a6bf3223fe9de](https://gitlab.com/html-validate/html-validate/commit/e4a6bf3223fe9de221155397afd2dea898437c20))
+ -  move to next release version ([118054e5fef25cf](https://gitlab.com/html-validate/html-validate/commit/118054e5fef25cf17003ddba10aaa0f48477c483))
+
+
+"name: v2.0.0" is a release tag
+
+## [v2.0.0](https://gitlab.com/html-validate/html-validate/compare/v2.0.0) (2022-09-19)
+
 ### Features
 
  -  **zx-clone-flow.mjs**  cloud flow clone script ([f0ab329cd1f0abe](https://gitlab.com/html-validate/html-validate/commit/f0ab329cd1f0abeb6c2296218794566e7b9fe092))
@@ -13,6 +34,10 @@
 
  -  parsing result of 'solution list' ([89a559375f92505](https://gitlab.com/html-validate/html-validate/commit/89a559375f9250531bcd6066cd561c122117f44f))
 
+### Documentation
+
+ -  update readme ([abafe8b0d5c4e4d](https://gitlab.com/html-validate/html-validate/commit/abafe8b0d5c4e4dd8ae1674dd76fae76cdaacb4c))
+ -  update changelog ([1fc2db2403e1dd9](https://gitlab.com/html-validate/html-validate/commit/1fc2db2403e1dd9f3e734a4f90c1f0fe55839cd8))
 
 ### Refactor
 
@@ -20,6 +45,7 @@
 
 ### ALM 
 
+ -  add script ([69489f021352c37](https://gitlab.com/html-validate/html-validate/commit/69489f021352c373d4786b862443fecd2412381f))
  -  upgrade zx version and node compatibility ([ce0eb6272320392](https://gitlab.com/html-validate/html-validate/commit/ce0eb6272320392cf83002b732ea3c471caa1034))
 
 
