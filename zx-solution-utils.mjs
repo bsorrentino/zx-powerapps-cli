@@ -1,7 +1,6 @@
 
 import { Writable } from 'stream'
 import 'zx/globals'
-import {startSpinner} from 'zx/experimental'
 import { $ } from 'zx'
 
 export const askForAuthProfile = async () => {
@@ -148,30 +147,3 @@ export const askYesOrNo = async ( message ) => {
  */
 export const getSettingsFile = (solutionFolder,selectedProfile) => 
     path.join( `${solutionFolder}_settings`, `${selectedProfile}_settings.json` )
-
-/**
- * This callback type is called `Task`
- * 
- * @typeparam {T} T
- * @callback Task
- * @return {Promise<T>} return
- */
-
-/**
- * [startTaskWithSpinner description]
- *
- * @template {T} T
- * @param   {Task}  task  the task
- *
- * @return  {Promise<T>}        [return description]
- */
-export const startTaskWithSpinner =  async ( task ) => {
-    const stop = startSpinner()
-
-    return new Promise( (resolve, reject) => {
-            task().then( r => resolve(r) )
-                 .catch( e => reject(e) )
-                 .finally( () => stop() )
-    })
-
-}
