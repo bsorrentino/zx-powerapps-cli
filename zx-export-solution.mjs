@@ -8,8 +8,9 @@
  * 
  */
 import 'zx/globals'
+import { spinner } from 'zx/experimental'
 import {
-    askForAuthProfile, askNoOrYes, askYesOrNo, CaputeProcessOutput, getSettingsFile, startTaskWithSpinner
+    askForAuthProfile, askNoOrYes, askYesOrNo, CaputeProcessOutput, getSettingsFile
 } from './zx-solution-utils.mjs'
 
 
@@ -101,9 +102,12 @@ async function main() {
         const solutionListOutput = new CaputeProcessOutput()
 
         // const rows = await getProcessOutputAsList( $`pac solution list` )
-        await startTaskWithSpinner(async () => {
+        await spinner(async () => {
             if (argv.solution) {
-                await quiet($`pac solution list`.pipe(solutionListOutput))
+                within( async () => {
+                    $.verbose = false
+                    await $`pac solution list`.pipe(solutionListOutput)
+                })
             }
             else {
                 await $`pac solution list`.pipe(solutionListOutput)
@@ -115,13 +119,15 @@ async function main() {
             solutionListOutput
                 .toList()
                 .map(row =>
-                    /^\[\d+\]\s+([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row))
+                    /^(?:\[\d+\]\s+)?([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row))
                 .filter(m => m != null)
                 .map(m => ({ name: m[1], ver: m[3] }))
 
         if (solutions.length <= 0) {
             return
         }
+
+        // console.log( solutions )
 
         const choice = (argv.solution) ?
             argv.solution :
