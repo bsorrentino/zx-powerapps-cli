@@ -4,52 +4,83 @@ import 'zx/globals'
 import crypto from 'crypto'
 import { Parser as XmlParser, Builder as XmlBuilder } from 'xml2js'
 
-const askForSolutionZipFile = async () => {
-    if( argv.zipfile ) {
-        return argv.zipfile
-    }
-    return question('solution zip: ')
-}
+import { 
+    askForSolutionFolder
+} from './zx-solution-utils.mjs'
 
+/**
+ * [askForFLowFile description]
+ *
+ * @param   {[type]}  solutionFolder  [solutionFolder description]
+ *
+ * @return  {[type]}                  [return description]
+ */
+export const askForFLowFile = async ( solutionFolder ) => {
+
+    let result
+
+    await within( async () => {
+        let flow 
+        const workflows_dir = path.join( solutionFolder, 'Workflows')
+        cd( workflows_dir )
+        if( argv.flow ) {
+             flow = argv.flow
+        }
+        else {
+            flow = await question('flow json file: ')
+        }
+        for(;;) {
+            flow = path.basename(flow)
+
+            const rxp = new RegExp( `(.*)-([\\w\\d]{8}-[\\w\\d]{4}-[\\w\\d]{4}-[\\w\\d]{4}-[\\w\\d]{12}).json$`, 'g')
+            let rxp_match = rxp.exec( flow )
+
+            if( rxp_match === null ) {
+                console.log( chalk.red(`'${flow}' is not a valid flow file name format !`))
+                continue      
+            }
+            try {
+                const stats = await fs.stat( flow )
+                if( stats.isFile() ) {
+                    result = { 
+                        dir: workflows_dir,
+                        flow: flow, 
+                        prefix: rxp_match[1],  
+                        uuid: rxp_match[2] 
+                    }
+                    return
+                }
+    
+                console.log( chalk.red(`'${flow}' is not a file!`))            
+            }
+            catch( e ) {
+                console.log( chalk.red(`flow '${flow}' doesn't exist!`))
+            }
+            flow = await question('flow json file: ')
+        }
+    })
+    
+    return result
+
+}
 
 const main = async () => {
 
-    const solution = path.join( 'Solutions', argv.solution )
+    const solution = await askForSolutionFolder()
 
-    const flowPrefix = argv.prefix
+    const { 
+        dir: workflows_dir,
+        flow: origina_flow_name, 
+        prefix: flowPrefix , 
+        uuid: original_uuid } = await askForFLowFile( solution )
 
-    const workflows_dir = path.join( solution, 'Workflows')
     const other_dir = path.join( solution, 'Other')
 
     const new_uuid = argv.uuid ?? crypto.randomUUID()
     
-    console.log( 'new_uuid', new_uuid )
-
     const new_flow = `${flowPrefix}2-${new_uuid.toLocaleUpperCase()}.json`
-     
-    const find_file_to_clone = async () => {
-        const files = await fs.readdir( workflows_dir )
 
-        const flows = files.map( f => {
-            const rxp = new RegExp( `${flowPrefix}-([\\w\\d]{8}-[\\w\\d]{4}-[\\w\\d]{4}-[\\w\\d]{4}-[\\w\\d]{12}).json$`, 'g')
-            // console.log( path.basename(f) )
-            const res =  rxp.exec(path.basename(f))
-            // console.log( res )
-            return { file: f, parse: res } 
-    
-        })
-        .filter( v =>  v.parse !== null ) 
-    
-        if( flows.length === 0 ) throw `Flow with prefix '${flowPrefix}' not found!`                        
-        if( flows.length > 1 ) throw `There are more flows with prefix '${flowPrefix}'!`      
-    
-        let { file, parse } = flows[0]
-    
-        // console.log( origina_flow_name,  parse )
-        
-        return { origina_flow_name: file, original_uuid: parse[1] }
-    }
-    const { origina_flow_name, original_uuid } = await find_file_to_clone()
+    console.log( 'new_flow', new_flow )
 
     const clone_flow_file = async () => {
 
@@ -93,8 +124,12 @@ const main = async () => {
     
         const rootcomponent_array =  parseResult.ImportExportXml.SolutionManifest[0].RootComponents[0].RootComponent
         
-        const findId = ( id ) => rootcomponent_array.find( value => 
-            value.$.id.localeCompare( id, undefined, { sensitivity: 'base'} )===0 )
+        // console.log( rootcomponent_array )
+
+        const findId = ( id ) => 
+            rootcomponent_array
+                            .filter( value => value.$.id )
+                            .find( value => value.$.id.localeCompare( id, undefined, { sensitivity: 'base'} )===0 )
 
         const new_uuid_fmt = `{${new_uuid.toLocaleLowerCase()}}`
 
@@ -134,16 +169,5 @@ const main = async () => {
 
 }
 
-const help = () => 
-console.log( `
---solution\tsolution path (mandatory)
---prefix\torigina flow name prefix (mandatory)
---uuid\tuuid assigned to cloned flow (optional)
-`)
 
-if( argv.solution===undefined && argv.prefix===undefined && argv.uuid===undefined) {
-    help() 
-}
-else {
-    main()
-}
+main()
