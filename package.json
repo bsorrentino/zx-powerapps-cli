@@ -9,7 +9,8 @@
     "zx-unpack-msapps": "./zx-unpack-msapps.mjs",
     "zx-export-solution": "./zx-export-solution.mjs",
     "zx-import-solution": "./zx-import-solution.mjs",
-    "zx-version-bump": "./zx-version-bump.mjs"
+    "zx-version-bump": "./zx-version-bump.mjs",
+    "zx-clone-flow": "./zx-clone-flow.mjs"
   },
   "dependencies": {
     "xml2js": "^0.4.23",
