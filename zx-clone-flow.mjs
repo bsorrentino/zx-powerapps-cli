@@ -1,4 +1,4 @@
-#!/usr/bin/env zx
+#!/usr/bin/env node
 
 import 'zx/globals'
 import crypto from 'crypto'
@@ -6,7 +6,7 @@ import { Parser as XmlParser, Builder as XmlBuilder } from 'xml2js'
 
 import { 
     askForSolutionFolder
-} from './zx-solution-utils.mjs'
+} from '@bsorrentino/zx-powerapps-cli/zx-solution-utils.mjs'
 
 /**
  * [askForFLowFile description]
