@@ -37,24 +37,25 @@ export const askForFLowFile = async ( solutionFolder ) => {
 
             if( rxp_match === null ) {
                 console.log( chalk.red(`'${flow}' is not a valid flow file name format !`))
-                continue      
             }
-            try {
-                const stats = await fs.stat( flow )
-                if( stats.isFile() ) {
-                    result = { 
-                        dir: workflows_dir,
-                        flow: flow, 
-                        prefix: rxp_match[1],  
-                        uuid: rxp_match[2] 
+            else {
+                try {
+                    const stats = await fs.stat( flow )
+                    if( stats.isFile() ) {
+                        result = { 
+                            dir: workflows_dir,
+                            flow: flow, 
+                            prefix: rxp_match[1],  
+                            uuid: rxp_match[2] 
+                        }
+                        return
                     }
-                    return
+        
+                    console.log( chalk.red(`'${flow}' is not a file!`))            
                 }
-    
-                console.log( chalk.red(`'${flow}' is not a file!`))            
-            }
-            catch( e ) {
-                console.log( chalk.red(`flow '${flow}' doesn't exist!`))
+                catch( e ) {
+                    console.log( chalk.red(`flow '${flow}' doesn't exist!`))
+                }    
             }
             flow = await question('flow json file: ')
         }
