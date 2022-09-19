@@ -1,0 +1,120 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "PowerApp",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Year_Value": {
+                  "type": "integer",
+                  "description": "Enter initial value",
+                  "x-ms-powerflows-param-ispartial": false
+                }
+              },
+              "required": [
+                "Year_Value"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Year": {
+          "runAfter": {},
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "year",
+                "type": "integer",
+                "value": "@triggerBody()['Year_Value']"
+              }
+            ]
+          }
+        },
+        "First_Day": {
+          "runAfter": {
+            "Year": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@formatDateTime(concat( '01/01/', string(variables('year'))))"
+        },
+        "Last_Day": {
+          "runAfter": {
+            "First_Day": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@addDays(formatDateTime(concat( '01/01/', string(add(variables('year'),1)))), -1)"
+        },
+        "First_Week": {
+          "runAfter": {
+            "Last_Day": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@div(add(dayofyear(addDays(subtractFromTime(outputs('First_Day'), if(equals(dayofweek(outputs('First_Day')), 0), 6, sub(dayofweek(outputs('First_Day')), 1)), 'Day'), 3)), 6), 7)"
+        },
+        "Last_Week": {
+          "runAfter": {
+            "First_Week": [
+              "Succeeded"
+            ]
+          },
+          "type": "Compose",
+          "inputs": "@div(add(dayofyear(addDays(subtractFromTime(outputs('Last_Day'), if(equals(dayofweek(outputs('Last_Day')), 0), 6, sub(dayofweek(outputs('Last_Day')), 1)), 'Day'), 3)), 6), 7)"
+        },
+        "Respond_to_a_PowerApp_or_flow": {
+          "runAfter": {
+            "Last_Week": [
+              "Succeeded"
+            ]
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "firstweek": "@int(outputs('First_Week'))",
+              "lastweek": "@int(outputs('Last_Week'))"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstweek": {
+                  "title": "FirstWeek",
+                  "x-ms-dynamically-added": true,
+                  "type": "number"
+                },
+                "lastweek": {
+                  "title": "LastWeek",
+                  "x-ms-dynamically-added": true,
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

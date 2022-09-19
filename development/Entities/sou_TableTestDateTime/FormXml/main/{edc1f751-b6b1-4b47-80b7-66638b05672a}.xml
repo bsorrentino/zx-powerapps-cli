@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{edc1f751-b6b1-4b47-80b7-66638b05672a}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{7c88f3c1-0648-4fb9-87bb-f8c8e5b0e788}" IsUserDefined="1" name="general_tab">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{66d0320e-ce71-4599-b89e-a49af84dbcdf}" name="general_section">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{674838b8-ee14-4b04-8108-698e9a088d1e}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="sou_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sou_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b6015425-8401-4f20-a5b8-27ea97aa6da3}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3602594c-5095-4dfd-8a23-dd9d2f93699f}" locklevel="0" showlabel="true" visible="false">
+                        <labels>
+                          <label description="DateTimeNoTZ" languagecode="1033" />
+                        </labels>
+                        <control id="sou_datetimenotz" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="sou_datetimenotz" disabled="false" uniqueid="{7ae8e7c7-d609-1454-45bd-43698d2eea3a}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{67bd278f-8534-4143-9b86-3be9d9436960}" locklevel="0" showlabel="true">
+                        <labels>
+                          <label description="DateTimeUserTZ" languagecode="1033" />
+                        </labels>
+                        <control id="sou_datetime1" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="sou_datetime1" disabled="false" uniqueid="{ba73d16e-c706-775b-e8bb-5336b58d7329}" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="general_tab_section_3" id="6524ecb7-0e7c-43ec-ab1d-7fea1429eaed" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="No PCF" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{cc0f3cc4-649e-4a5d-b3f1-d53ef7900fd9}" locklevel="0">
+                        <labels>
+                          <label description="DateTimeNoTZ" languagecode="1033" />
+                        </labels>
+                        <control id="sou_datetimenotz" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="sou_datetimenotz" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7f296586-398e-4a2d-bfc4-b910850eaa0b}" locklevel="0">
+                        <labels>
+                          <label description="DateTimeUserTZ" languagecode="1033" />
+                        </labels>
+                        <control id="sou_datetime1" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="sou_datetime1" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{14fea446-5903-4284-bd42-30bad2aa48da}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{9a1fb56a-8559-4f7a-9259-3da26ab26a85}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{95aa83d0-23ad-487c-8670-a6ad8397c783}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{c113da87-1eca-44b3-a9a7-f572e2baf689}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{9c22b736-e915-4021-b5fd-b1bb837a1439}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{74556590-2edc-42a0-8834-32a1f379388e}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{808ecbc4-d4b0-4dae-bd53-1def020c3200}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{d7da955d-fbbc-43b2-b304-d9f14c80becf}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <Navigation>
+        <NavBar></NavBar>
+        <NavBarAreas>
+          <NavBarArea Id="Info">
+            <Titles>
+              <Title LCID="1033" Text="Common" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Sales">
+            <Titles>
+              <Title LCID="1033" Text="Sales" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Service">
+            <Titles>
+              <Title LCID="1033" Text="Service" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Marketing">
+            <Titles>
+              <Title LCID="1033" Text="Marketing" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="ProcessCenter">
+            <Titles>
+              <Title LCID="1033" Text="Process Sessions" />
+            </Titles>
+          </NavBarArea>
+        </NavBarAreas>
+      </Navigation>
+      <controlDescriptions>
+        <controlDescription forControl="{7ae8e7c7-d609-1454-45bd-43698d2eea3a}">
+          <customControl id="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}">
+            <parameters>
+              <datafieldname>sou_datetimenotz</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="sou_PCFNamespace.OfficeUIHourOnlyField">
+            <parameters>
+              <DefaultDate static="true" type="DateAndTime.DateOnly">1899-12-31</DefaultDate>
+              <TimeValue>sou_datetimenotz</TimeValue>
+              <msinternal.isvisibleinmocaonly static="true">true</msinternal.isvisibleinmocaonly>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="sou_PCFNamespace.OfficeUIHourOnlyField">
+            <parameters>
+              <DefaultDate static="true" type="DateAndTime.DateOnly">1899-12-31</DefaultDate>
+              <TimeValue>sou_datetimenotz</TimeValue>
+              <msinternal.isvisibleinmocaonly static="true">true</msinternal.isvisibleinmocaonly>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="sou_PCFNamespace.OfficeUIHourOnlyField">
+            <parameters>
+              <DefaultDate static="true" type="DateAndTime.DateOnly">1899-12-31</DefaultDate>
+              <TimeValue>sou_datetimenotz</TimeValue>
+              <msinternal.isvisibleinmocaonly static="true">true</msinternal.isvisibleinmocaonly>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{ba73d16e-c706-775b-e8bb-5336b58d7329}">
+          <customControl id="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}">
+            <parameters>
+              <datafieldname>sou_datetime1</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="sou_PCFNamespace.OfficeUIHourOnlyField">
+            <parameters>
+              <DefaultDate static="true" type="DateAndTime.DateOnly">1899-12-31</DefaultDate>
+              <TimeValue>sou_datetime1</TimeValue>
+              <msinternal.isvisibleinmocaonly static="true">true</msinternal.isvisibleinmocaonly>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="sou_PCFNamespace.OfficeUIHourOnlyField">
+            <parameters>
+              <DefaultDate static="true" type="DateAndTime.DateOnly">1899-12-31</DefaultDate>
+              <TimeValue>sou_datetime1</TimeValue>
+              <msinternal.isvisibleinmocaonly static="true">true</msinternal.isvisibleinmocaonly>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="sou_PCFNamespace.OfficeUIHourOnlyField">
+            <parameters>
+              <DefaultDate static="true" type="DateAndTime.DateOnly">1899-12-31</DefaultDate>
+              <TimeValue>sou_datetime1</TimeValue>
+              <msinternal.isvisibleinmocaonly static="true">true</msinternal.isvisibleinmocaonly>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

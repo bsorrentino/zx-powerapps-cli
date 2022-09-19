@@ -1,0 +1,121 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "softp_sharedcommondataserviceforapps_d9735"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Code",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter currency code",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Create_a_new_row": {
+          "runAfter": {
+            "GetCurrencyIdByCode": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "softp_purchaseorderforsaras",
+              "item/softp_amount": 0,
+              "item/softp_documentsender": 905020000,
+              "item/softp_documentdate": "10-10-2021",
+              "item/softp_ponumber": "00000",
+              "item/softp_quote": "00000",
+              "item/softp_contact": "none",
+              "item/transactioncurrencyid@odata.bind": "/transactioncurrencies(@{outputs('currency_id')})"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "GetCurrencyIdByCode": {
+          "actions": {
+            "List_Currencies": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "transactioncurrencies",
+                  "$select": "transactioncurrencyid",
+                  "$filter": "isocurrencycode eq '@{triggerBody()['text']}'",
+                  "$top": 1
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "currency_id": {
+              "runAfter": {
+                "List_Currencies": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Compose",
+              "inputs": "@outputs('List_Currencies')?['body/value'][0].transactioncurrencyid"
+            }
+          },
+          "runAfter": {},
+          "type": "Scope"
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,105 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "price",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your price (acceptable max 2 decimals)",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "TextToCurrency_Input": {
+          "runAfter": {},
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vTextToCurrency",
+                "type": "string",
+                "value": "@{triggerBody()['text']}"
+              }
+            ]
+          }
+        },
+        "TextToCurrency": {
+          "actions": {
+            "split_text": {
+              "runAfter": {},
+              "type": "Compose",
+              "inputs": "@split(replace(variables('vTextToCurrency'), ',', '.'), '.')"
+            },
+            "toCurrencyText": {
+              "runAfter": {
+                "split_text": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Compose",
+              "inputs": "@concat( join(take(outputs('split_text'), sub(length(outputs('split_text')),1)), ''), '.', last(outputs('split_text'))) "
+            },
+            "toCurrencyFloat": {
+              "runAfter": {
+                "toCurrencyText": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Compose",
+              "inputs": "@float(outputs('toCurrencyText'))"
+            }
+          },
+          "runAfter": {
+            "TextToCurrency_Input": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "TextToCurrency_Output": {
+          "runAfter": {
+            "TextToCurrency": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vCurrencyResult",
+                "type": "float",
+                "value": "@outputs('toCurrencyFloat')"
+              }
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}

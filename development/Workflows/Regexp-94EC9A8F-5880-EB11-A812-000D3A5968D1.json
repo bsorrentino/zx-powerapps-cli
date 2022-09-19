@@ -1,0 +1,123 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "exp",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "regular expression",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "value",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "value to match",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "RegExp_Parse": {
+          "actions": {
+            "HTTP_RegExp_Parse_Service_": {
+              "runAfter": {},
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "https://mail-body-parser.herokuapp.com/parse/regexp",
+                "headers": {
+                  "accept": "application/json",
+                  "content-type": "application/x-www-form-urlencoded"
+                },
+                "queries": {
+                  "ignorecase": "true"
+                },
+                "body": "exp=@{encodeUriComponent(variables('vRegExpPattern'))}&value=@{encodeUriComponent(variables('vRegExpInput'))}"
+              }
+            }
+          },
+          "runAfter": {
+            "RegExp_Input": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "RegExp_Pattern": {
+          "runAfter": {},
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vRegExpPattern",
+                "type": "string",
+                "value": "@triggerBody()['text']"
+              }
+            ]
+          }
+        },
+        "RegExp_Input": {
+          "runAfter": {
+            "RegExp_Pattern": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vRegExpInput",
+                "type": "string",
+                "value": "@triggerBody()['text_1']"
+              }
+            ]
+          }
+        },
+        "RegExp_Result": {
+          "runAfter": {
+            "RegExp_Parse": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "vRegExpResult",
+                "type": "array",
+                "value": "@body('HTTP_RegExp_Parse_Service_')"
+              }
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    }
+  },
+  "schemaVersion": "1.0.0.0"
+}
