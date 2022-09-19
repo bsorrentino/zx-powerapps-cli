@@ -91,6 +91,7 @@ Such command interactively ask for :
 
 * [Powerapps CLI](https://docs.microsoft.com/en-us/power-apps/developer/data-platform/powerapps-cli#common-commands)
 * [Generating Solution Settings File via the Microsoft Power Platform CLI](https://crmchap.co.uk/generating-solution-settings-file-via-the-microsoft-power-platform-cli/)
+* [Copy/Duplicate a Flow in a Solution]
 
 [Powerapps CLI]: https://docs.microsoft.com/en-us/power-apps/developer/data-platform/powerapps-cli#common-commands
 [ZX]: https://www.npmjs.com/package/zx
