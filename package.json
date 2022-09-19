@@ -38,53 +38,5 @@
   "homepage": "https://github.com/bsorrentino/zx-powerapps-cli#readme",
   "engines": {
     "node": ">= 16"
-  },
-  "standard-version": {
-    "skip": {
-      "changelog": false,
-      "bump": true,
-      "commit": true,
-      "tag": true
-    },
-    "types": [
-      {
-        "type": "feat",
-        "section": "Features"
-      },
-      {
-        "type": "fix",
-        "section": "Bug Fixes"
-      },
-      {
-        "type": "chore",
-        "hidden": true
-      },
-      {
-        "type": "docs",
-        "section": "Documentation"
-      },
-      {
-        "type": "style",
-        "hidden": true
-      },
-      {
-        "type": "refactor",
-        "section": "Refactoring"
-      },
-      {
-        "type": "perf",
-        "hidden": true
-      },
-      {
-        "type": "test",
-        "hidden": true
-      },
-      {
-        "type": "build",
-        "section": "Build"
-      }
-    ],
-    "commitUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/commits/{{hash}}",
-    "compareUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/compare/{{previousTag}}...{{currentTag}}"
   }
 }
