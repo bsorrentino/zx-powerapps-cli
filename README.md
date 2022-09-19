@@ -17,6 +17,22 @@ npm install @bsorrentino/zx-powerapps-cli --save-dev
 
 ## Scripts
 
+### zx-clone-flow
+
+Clone a flow whitin an exported solution on local file system.
+> This script doesn't require connection to dataverse environment
+
+#### Usage 
+```
+npx zx-clone-flow [--solution <solution folder>] [--flow <flow json file name>] [--uuid <new flow uuid>]
+```
+##### Interactive arguments :
+1. **Local solution's folder** (could provide it on command line using: `--solution` ).  
+1. **Flow json file name** in the form `<Prefix>-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.json` present in `<solution path>/Worlflows` (could provide it on command line using: `--flow` )
+
+##### Non-Interactive arguments :
+1. **New Flow UUID** in the form `XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`, if not provided a new one will be automatically generated
+
 ### zx-export-solution
 Export solution from powerapps a environment unpacking and saving it on local file system.
 > Solution is exported in both **Managed** and **Unmanged** package type
@@ -79,3 +95,4 @@ Such command interactively ask for :
 [Powerapps CLI]: https://docs.microsoft.com/en-us/power-apps/developer/data-platform/powerapps-cli#common-commands
 [ZX]: https://www.npmjs.com/package/zx
 [Powerapps CLI (pac)]: https://docs.microsoft.com/en-us/powerapps/developer/data-platform/powerapps-cli
+[Copy/Duplicate a Flow in a Solution]: https://powerusers.microsoft.com/t5/Building-Flows/Copy-Duplicate-a-Flow-in-a-Solution/td-p/487483
