@@ -17,6 +17,8 @@
     "zx": "^7.0.8"
   },
   "scripts": {
+    "build": "",
+    "test": "",
     "changelog": "git-changelog-command-line -of CHANGELOG.md"
   },
   "repository": {
