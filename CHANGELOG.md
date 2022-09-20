@@ -5,15 +5,42 @@
 ## [Unreleased](https://gitlab.com/html-validate/html-validate/compare/Unreleased) ()
 
 
+
+
+
+
+
+"name: v2.0.3" is a release tag
+
+## [v2.0.3](https://gitlab.com/html-validate/html-validate/compare/v2.0.3) (2022-09-20)
+
+### Features
+
+ -  **zx-clone-flow.mjs**  cloud flow clone script ([f0ab329cd1f0abe](https://gitlab.com/html-validate/html-validate/commit/f0ab329cd1f0abeb6c2296218794566e7b9fe092))
+ -  **zx-clone-flow**  initial draft implementation ([288632d517723b9](https://gitlab.com/html-validate/html-validate/commit/288632d517723b9e4f191843a8a172626c83bcbe))
+ -  **export-solution**  support of 'keep_zip' argument ([d5caa51118ee818](https://gitlab.com/html-validate/html-validate/commit/d5caa51118ee8184856d0467c31bccb65416021a))
+
 ### Bug Fixes
 
  -  **zx-export-solution**  fix parse 'pac solution list' output ([62f7b7fbaa622f2](https://gitlab.com/html-validate/html-validate/commit/62f7b7fbaa622f20edb72027b7f7d32c9c4261cb))
+ -  parsing result of 'solution list' ([89a559375f92505](https://gitlab.com/html-validate/html-validate/commit/89a559375f9250531bcd6066cd561c122117f44f))
+ -  remove package vulnerabilities ([52c2f11d7e0c7ae](https://gitlab.com/html-validate/html-validate/commit/52c2f11d7e0c7aeadf82d7f5d63fb84cadbb816c))
 
+### Documentation
 
+ -  update changelog ([4194dee1ded7127](https://gitlab.com/html-validate/html-validate/commit/4194dee1ded7127465bc3277d7e3885a8507db55))
+ -  update changelog ([1fc2db2403e1dd9](https://gitlab.com/html-validate/html-validate/commit/1fc2db2403e1dd9f3e734a4f90c1f0fe55839cd8))
+ -  update readme ([3c3f4a49a74b2ec](https://gitlab.com/html-validate/html-validate/commit/3c3f4a49a74b2ec1e2d94c3d9c3d14b5def7128c))
+
+### Refactor
+
+ -  remove deprecated 'startSpinner' function ([8d173563d522471](https://gitlab.com/html-validate/html-validate/commit/8d173563d5224717edad818d994f48ed473e2485))
+ -  update comments ([8847f0f9a8e3887](https://gitlab.com/html-validate/html-validate/commit/8847f0f9a8e3887f016ad1ca20fde395f29578e7))
 
 ### ALM 
 
  -  update release version ([c95fb20307dd78b](https://gitlab.com/html-validate/html-validate/commit/c95fb20307dd78bfc104e86db46d84811cf48e01))
+ -  upgrade zx version and node compatibility ([ce0eb6272320392](https://gitlab.com/html-validate/html-validate/commit/ce0eb6272320392cf83002b732ea3c471caa1034))
 
 
 "name: v2.0.2" is a release tag
@@ -42,50 +69,30 @@
 
 ## [v2.0.0](https://gitlab.com/html-validate/html-validate/compare/v2.0.0) (2022-09-19)
 
-### Features
 
- -  **zx-clone-flow.mjs**  cloud flow clone script ([f0ab329cd1f0abe](https://gitlab.com/html-validate/html-validate/commit/f0ab329cd1f0abeb6c2296218794566e7b9fe092))
- -  **zx-clone-flow**  initial draft implementation ([288632d517723b9](https://gitlab.com/html-validate/html-validate/commit/288632d517723b9e4f191843a8a172626c83bcbe))
-
-### Bug Fixes
-
- -  parsing result of 'solution list' ([89a559375f92505](https://gitlab.com/html-validate/html-validate/commit/89a559375f9250531bcd6066cd561c122117f44f))
 
 ### Documentation
 
  -  update readme ([abafe8b0d5c4e4d](https://gitlab.com/html-validate/html-validate/commit/abafe8b0d5c4e4dd8ae1674dd76fae76cdaacb4c))
- -  update changelog ([1fc2db2403e1dd9](https://gitlab.com/html-validate/html-validate/commit/1fc2db2403e1dd9f3e734a4f90c1f0fe55839cd8))
 
-### Refactor
-
- -  remove deprecated 'startSpinner' function ([8d173563d522471](https://gitlab.com/html-validate/html-validate/commit/8d173563d5224717edad818d994f48ed473e2485))
 
 ### ALM 
 
  -  add script ([69489f021352c37](https://gitlab.com/html-validate/html-validate/commit/69489f021352c373d4786b862443fecd2412381f))
- -  upgrade zx version and node compatibility ([ce0eb6272320392](https://gitlab.com/html-validate/html-validate/commit/ce0eb6272320392cf83002b732ea3c471caa1034))
 
 
 "name: v1.5.3" is a release tag
 
 ## [v1.5.3](https://gitlab.com/html-validate/html-validate/compare/v1.5.3) (2022-07-08)
 
-### Features
 
- -  **export-solution**  support of 'keep_zip' argument ([d5caa51118ee818](https://gitlab.com/html-validate/html-validate/commit/d5caa51118ee8184856d0467c31bccb65416021a))
-
-### Bug Fixes
-
- -  remove package vulnerabilities ([52c2f11d7e0c7ae](https://gitlab.com/html-validate/html-validate/commit/52c2f11d7e0c7aeadf82d7f5d63fb84cadbb816c))
 
 ### Documentation
 
  -  update changelog ([893e23fead1a6f4](https://gitlab.com/html-validate/html-validate/commit/893e23fead1a6f4f710dfc51ce98d1984de384fe))
- -  update readme ([3c3f4a49a74b2ec](https://gitlab.com/html-validate/html-validate/commit/3c3f4a49a74b2ec1e2d94c3d9c3d14b5def7128c))
 
 ### Refactor
 
- -  update comments ([8847f0f9a8e3887](https://gitlab.com/html-validate/html-validate/commit/8847f0f9a8e3887f016ad1ca20fde395f29578e7))
  -  **zx-version-bump**  add trailing space to question ([3a23ba255512f95](https://gitlab.com/html-validate/html-validate/commit/3a23ba255512f95982b19ac6f5a4d5d021e5aee1))
 
 ### ALM 
