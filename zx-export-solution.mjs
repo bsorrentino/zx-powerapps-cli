@@ -92,6 +92,16 @@ const createSettings = async (solutionFolder, selectedProfile) => {
     await $`pac solution create-settings -f ${solutionFolder} -s ${settingsFile}`
 }
 
+
+const tap = ( msg ) => 
+        (v) => {
+            console.log( msg, v );
+            return v
+        }
+
+
+const notNull = ( v ) => v!==null
+
 async function main() {
 
     try {
@@ -104,10 +114,7 @@ async function main() {
         // const rows = await getProcessOutputAsList( $`pac solution list` )
         await spinner(async () => {
             if (argv.solution) {
-                within( async () => {
-                    $.verbose = false
-                    await $`pac solution list`.pipe(solutionListOutput)
-                })
+                await $`pac solution list`.pipe(solutionListOutput)
             }
             else {
                 await $`pac solution list`.pipe(solutionListOutput)
@@ -118,12 +125,15 @@ async function main() {
         const solutions =
             solutionListOutput
                 .toList()
+                // .map( tap('parse') )
                 .map(row =>
-                    /^(?:\[\d+\]\s+)?([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row))
-                .filter(m => m != null)
+                    /([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row))
+                // .map( tap('matcher') )
+                .filter(notNull)
                 .map(m => ({ name: m[1], ver: m[3] }))
 
         if (solutions.length <= 0) {
+            console.warn( chalk.yellowBright('no solution detected!'))
             return
         }
 
