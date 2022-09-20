@@ -7,11 +7,28 @@
 
 ### Bug Fixes
 
+ -  **zx-export-solution**  fix parse 'pac solution list' output ([62f7b7fbaa622f2](https://gitlab.com/html-validate/html-validate/commit/62f7b7fbaa622f20edb72027b7f7d32c9c4261cb))
+
+
+
+### ALM 
+
+ -  update release version ([c95fb20307dd78b](https://gitlab.com/html-validate/html-validate/commit/c95fb20307dd78bfc104e86db46d84811cf48e01))
+
+
+"name: v2.0.2" is a release tag
+
+## [v2.0.2](https://gitlab.com/html-validate/html-validate/compare/v2.0.2) (2022-09-19)
+
+
+### Bug Fixes
+
  -  **zx-clone-flow**  avoid infinite loop on error ([3f7854de65443d7](https://gitlab.com/html-validate/html-validate/commit/3f7854de65443d78f890cb7542310e8a535838db))
  -  **zx-clone-flow**  update shebang line ([8e3c3aa95a010e0](https://gitlab.com/html-validate/html-validate/commit/8e3c3aa95a010e02393054e617d44a987353df8f))
 
 ### Documentation
 
+ -  update changelog ([e5aa10a7e03ba03](https://gitlab.com/html-validate/html-validate/commit/e5aa10a7e03ba03a6c353b607eb7088154d242df))
  -  update readme ([62f26af60b443ea](https://gitlab.com/html-validate/html-validate/commit/62f26af60b443eadea8538baedcc4d10cd9adca6))
 
 
