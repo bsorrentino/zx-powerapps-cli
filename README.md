@@ -56,13 +56,17 @@ Pack solution from local file system and import it in a powerapps environment
 
 #### Usage 
 ```
-npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--package Managed|Unmanaged|Both]
+npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--package Managed|Unmanaged|Both] [--packonly]
 ```
 ##### Interactive arguments :
-1. **Authentication profile's index** (could provide it on command line using: `--authindex` ).
 1. **Local solution's folder** (could provide it on command line using: `--solution` ). 
-1. **Use settings file**
-   > This will be asked only if the settings file `<solution>_settings/<auth profile>_settings.json` exists 
+
+if `--packonly` is not specified
+   1. **Authentication profile's index** (could provide it on command line using: `--authindex` ).
+   1. **Use settings file**
+      > This will be asked only if the settings file `<solution>_settings/<auth profile>_settings.json` exists 
+##### Non-Interactive arguments :
+* `--packonly` : perform only packing and skips import 
 
 ### zx-version-bump
 Update local and remote solution's version

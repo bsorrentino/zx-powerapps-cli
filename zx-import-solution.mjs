@@ -32,25 +32,29 @@ async function main() {
     
     try {
 
-        const selectedProfile = await askForAuthProfile( )
-
         const solution = await askForSolutionFolder()
 
         let settingsFile = null
 
-        const candidateSettingsFile = getSettingsFile( solution, selectedProfile )
+        if( !argv.packonly ) {
 
-        try {
-            const stats = await fs.stat( candidateSettingsFile )
-            if( stats.isFile() ) {
-                if( await askYesOrNo('do import settings') ) {
-                    settingsFile = candidateSettingsFile
+            const selectedProfile =  await askForAuthProfile( )
+
+            const candidateSettingsFile = getSettingsFile( solution, selectedProfile )
+    
+            try {
+                const stats = await fs.stat( candidateSettingsFile )
+                if( stats.isFile() ) {
+                    if( await askYesOrNo('do import settings') ) {
+                        settingsFile = candidateSettingsFile
+                    }
                 }
             }
-        }
-        catch( e ) {
-            // settings not found
-            console.info( chalk.yellow(`settings file '${candidateSettingsFile}' doesn't exist!`))
+            catch( e ) {
+                // settings not found
+                console.info( chalk.yellow(`settings file '${candidateSettingsFile}' doesn't exist!`))
+            }
+    
         }
 
         const package_type = await askForPackageType()
@@ -70,10 +74,13 @@ async function main() {
         }
         await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
 
-        if( settingsFile!==null )  
-            await $`pac solution import -p ${importSolutionPath} -f -pc -a --settings-file ${settingsFile}`  
-        else
-            await $`pac solution import -p ${importSolutionPath} -f -pc -a`  
+        if( !argv.packonly ) {
+            
+            if( settingsFile!==null )  
+                await $`pac solution import -p ${importSolutionPath} -f -pc -a --settings-file ${settingsFile}`  
+            else
+                await $`pac solution import -p ${importSolutionPath} -f -pc -a`  
+        }
         
     } catch (p) {
         if (p.exitCode)
