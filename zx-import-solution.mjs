@@ -27,47 +27,69 @@ const askForPackageType = async () => {
     return 'Managed'
 }
 
+/**
+ * validate existence and asks processing confirmation
+ *
+ * @param   {[string]}  candidateSettingsFile  [setting file path to validate]
+ *
+ * @return  {[type]}                         [given argument otherwise null]
+ */
+const validateSettingFile = async ( candidateSettingsFile ) => {
+
+    try {
+        const stats = await fs.stat( candidateSettingsFile )
+        if( stats.isFile() ) {
+            if( await askYesOrNo('do import settings') ) {
+                return candidateSettingsFile
+            }
+        }
+    }
+    catch( e ) {
+        // settings not found
+        console.info( chalk.yellow(`settings file '${candidateSettingsFile}' doesn't exist!`))
+    }
+
+    return null
+}
+
+/**
+ * [getImportSolutionPath description]
+ *
+ * @param   {[string]}  solution  [solution description]
+ * @param   {[string]}  package_type  [solution description]
+ * @param   {[string]}  outdir    [outdir description]
+ *
+ * @return  {[type]}            [return description]
+ */
+const getImportSolutionPath = ( solution, package_type, outdir ) => {
+       
+    switch( package_type ) {
+        case 'Unmanaged':
+            return path.join( outdir, `${solution}.zip`)
+        case 'Managed':
+            return path.join( outdir, `${solution}_managed.zip`)
+        case 'Both': 
+            return path.join( outdir, `${solution}_both.zip`)
+    }
+    throw `Unknow package type ${package_type}`
+}
 
 async function main() {
     
     try {
 
-        const selectedProfile = await askForAuthProfile( )
+        const selectedProfile =  await askForAuthProfile( )
 
         const solution = await askForSolutionFolder()
 
-        let settingsFile = null
-
         const candidateSettingsFile = getSettingsFile( solution, selectedProfile )
 
-        try {
-            const stats = await fs.stat( candidateSettingsFile )
-            if( stats.isFile() ) {
-                if( await askYesOrNo('do import settings') ) {
-                    settingsFile = candidateSettingsFile
-                }
-            }
-        }
-        catch( e ) {
-            // settings not found
-            console.info( chalk.yellow(`settings file '${candidateSettingsFile}' doesn't exist!`))
-        }
-
+        const settingsFile = await validateSettingFile( candidateSettingsFile )
+    
         const package_type = await askForPackageType()
        
-        let importSolutionPath = null
+        const importSolutionPath = getImportSolutionPath( solution, package_type, os.tmpdir() )
 
-        switch( package_type ) {
-            case 'Unmanaged':
-                importSolutionPath = path.join( '/tmp', `${solution}.zip`)
-            break
-            case 'Managed':
-                importSolutionPath = path.join( '/tmp', `${solution}_managed.zip`)
-            break
-            case 'Both': 
-                importSolutionPath = path.join( '/tmp', `${solution}_both.zip`)
-            break
-        }
         await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
 
         if( settingsFile!==null )  
@@ -81,8 +103,31 @@ async function main() {
         else
             console.error(p)
     }
-    finally {
+}
+
+async function main_packonly() {
+    
+    try {
+
+        const solution = await askForSolutionFolder()
+
+        const package_type = await askForPackageType()
+       
+        const importSolutionPath = getImportSolutionPath( solution, package_type, '.' )
+
+        await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
+        
+    } catch (p) {
+        if (p.exitCode)
+            console.log(`error occurred code: ${p.exitCode} error: ${p.stderr}`)
+        else
+            console.error(p)
     }
 }
 
-main()
+if( argv.packonly ) {
+    main_packonly().then( () => console.log( 'Completed!' ))
+}
+else {
+    main().then( () => console.log( 'Completed!' ))
+}
