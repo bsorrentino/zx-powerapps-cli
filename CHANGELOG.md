@@ -4,8 +4,15 @@
 
 ## [Unreleased](https://gitlab.com/html-validate/html-validate/compare/Unreleased) ()
 
+### Features
+
+ -  finalize packonly management ([7b908ad681c11c5](https://gitlab.com/html-validate/html-validate/commit/7b908ad681c11c51b223f2ae60c00ac39be2d9fc))
+ -  add --packonly arg on import ([1425e7eeb5aab37](https://gitlab.com/html-validate/html-validate/commit/1425e7eeb5aab37f36be746433725e91adda5bc4))
 
 
+### Documentation
+
+ -  update changelog ([fa016a38b001d79](https://gitlab.com/html-validate/html-validate/commit/fa016a38b001d79637d58b49800372b1cca49ff4))
 
 
 
