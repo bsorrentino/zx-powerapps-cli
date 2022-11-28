@@ -4,17 +4,33 @@
 
 ## [Unreleased](https://gitlab.com/html-validate/html-validate/compare/Unreleased) ()
 
+
+
+
+
+
+
+"name: v2.0.4" is a release tag
+
+## [v2.0.4](https://gitlab.com/html-validate/html-validate/compare/v2.0.4) (2022-11-28)
+
 ### Features
 
  -  finalize packonly management ([7b908ad681c11c5](https://gitlab.com/html-validate/html-validate/commit/7b908ad681c11c51b223f2ae60c00ac39be2d9fc))
  -  add --packonly arg on import ([1425e7eeb5aab37](https://gitlab.com/html-validate/html-validate/commit/1425e7eeb5aab37f36be746433725e91adda5bc4))
 
+### Bug Fixes
+
+ -  **zx-export-solution**  fix parse 'pac solution list' output ([62f7b7fbaa622f2](https://gitlab.com/html-validate/html-validate/commit/62f7b7fbaa622f20edb72027b7f7d32c9c4261cb))
 
 ### Documentation
 
  -  update changelog ([fa016a38b001d79](https://gitlab.com/html-validate/html-validate/commit/fa016a38b001d79637d58b49800372b1cca49ff4))
 
 
+### ALM 
+
+ -  set new release ([3272f74927942f8](https://gitlab.com/html-validate/html-validate/commit/3272f74927942f87cc38a9f03aaa66a773378510))
 
 
 "name: v2.0.3" is a release tag
@@ -29,7 +45,6 @@
 
 ### Bug Fixes
 
- -  **zx-export-solution**  fix parse 'pac solution list' output ([62f7b7fbaa622f2](https://gitlab.com/html-validate/html-validate/commit/62f7b7fbaa622f20edb72027b7f7d32c9c4261cb))
  -  parsing result of 'solution list' ([89a559375f92505](https://gitlab.com/html-validate/html-validate/commit/89a559375f9250531bcd6066cd561c122117f44f))
  -  remove package vulnerabilities ([52c2f11d7e0c7ae](https://gitlab.com/html-validate/html-validate/commit/52c2f11d7e0c7aeadf82d7f5d63fb84cadbb816c))
 
