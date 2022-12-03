@@ -10,7 +10,14 @@
 import 'zx/globals'
 import { spinner } from 'zx/experimental'
 import {
-    askForAuthProfile, askNoOrYes, askYesOrNo, CaputeProcessOutput, getSettingsFile
+    askForAuthProfile, 
+    askNoOrYes, 
+    askYesOrNo, 
+    CaputeProcessOutput, 
+    getSettingsFile,
+    askForPackageType,
+    askForZipfile,
+    askForSolutionFolder
 } from './zx-solution-utils.mjs'
 
 
@@ -102,6 +109,30 @@ const tap = ( msg ) =>
 
 const notNull = ( v ) => v!==null
 
+
+/**
+ * perform export if unpakonly argument has set
+ *
+ */
+async function main_unpackonly() {
+
+    const file = await askForZipfile()
+
+    const ptype = await askForPackageType()
+
+    const folder = await askForSolutionFolder()
+
+    const solution = path.join( folder, path.basename(file, '.zip').replace( /_(\d+)_(\d+)_(\d+)(_\d+)?.zip$/, '' ))
+   
+    await $`pac solution unpack --zipfile ${file} --folder ${solution} --packagetype ${ptype} --allowDelete`
+
+
+}
+
+/**
+ * perform mai export process 
+ *
+ */
 async function main() {
 
     try {
@@ -180,4 +211,9 @@ async function main() {
     }
 }
 
-main()
+if( argv.unpackonly ) {
+    main_unpackonly().then( () => console.log( 'Completed!' ))
+}
+else {
+    main().then( () => console.log( 'Completed!' ))
+}
