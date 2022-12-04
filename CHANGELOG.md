@@ -4,11 +4,26 @@
 
 ## [Unreleased](https://gitlab.com/html-validate/html-validate/compare/Unreleased) ()
 
+
+
+
+
+
+
+"name: v2.0.5" is a release tag
+
+## [v2.0.5](https://gitlab.com/html-validate/html-validate/compare/v2.0.5) (2022-12-04)
+
 ### Features
 
  -  **zx-export-solution**  add support of --unpackonly argument ([f76fcdbd1972a0c](https://gitlab.com/html-validate/html-validate/commit/f76fcdbd1972a0c65a172a22b62953c95d6adb53))
+ -  finalize packonly management ([7b908ad681c11c5](https://gitlab.com/html-validate/html-validate/commit/7b908ad681c11c51b223f2ae60c00ac39be2d9fc))
+ -  add --packonly arg on import ([1425e7eeb5aab37](https://gitlab.com/html-validate/html-validate/commit/1425e7eeb5aab37f36be746433725e91adda5bc4))
 
 
+### Documentation
+
+ -  **changelog**  update changelog ([a585dd1a64a2fbc](https://gitlab.com/html-validate/html-validate/commit/a585dd1a64a2fbc02667c4e7f71d50739bb4126c))
 
 
 ### ALM 
@@ -20,10 +35,6 @@
 
 ## [v2.0.4](https://gitlab.com/html-validate/html-validate/compare/v2.0.4) (2022-11-28)
 
-### Features
-
- -  finalize packonly management ([7b908ad681c11c5](https://gitlab.com/html-validate/html-validate/commit/7b908ad681c11c51b223f2ae60c00ac39be2d9fc))
- -  add --packonly arg on import ([1425e7eeb5aab37](https://gitlab.com/html-validate/html-validate/commit/1425e7eeb5aab37f36be746433725e91adda5bc4))
 
 ### Bug Fixes
 
