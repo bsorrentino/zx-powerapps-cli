@@ -4,10 +4,16 @@
 
 ## [Unreleased](https://gitlab.com/html-validate/html-validate/compare/Unreleased) ()
 
+### Features
+
+ -  **zx-export-solution**  add support of --unpackonly argument ([f76fcdbd1972a0c](https://gitlab.com/html-validate/html-validate/commit/f76fcdbd1972a0c65a172a22b62953c95d6adb53))
 
 
 
 
+### ALM 
+
+ -  update release ([633e8a391df43f3](https://gitlab.com/html-validate/html-validate/commit/633e8a391df43f387fe047947d5be2b345368d31))
 
 
 "name: v2.0.4" is a release tag

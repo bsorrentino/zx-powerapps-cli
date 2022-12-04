@@ -39,32 +39,49 @@ Export solution from powerapps a environment unpacking and saving it on local fi
 
 #### Usage 
 ```
-npx zx-export-solution [--authindex <n>] [--solution <solution name>] [--keepzip]
+npx zx-export-solution  [--authindex <n>] 
+                        [--solution <solution name>] 
+                        [--keepzip]
+                        [--unpackonly]
 ```
 ##### Interactive arguments :
-1. **Authentication profile's index** (could provide it on command line using: `--authindex` ).
-1. **Solution's name** that you've to export (could provide it on command line using: `--solution` ). 
-   > Take note that available solutions will be displayed before
-1. **Publish customization**
-1. **Create settings**
-   > the file generated will be `<solution>_settings/<auth profile>_settings.json`
+if `--unpackonly` is not specified
+   1. **Authentication profile's index** (could provide it on command line using: `--authindex` ).
+   1. **Solution's name** that you've to export (could provide it on command line using: `--solution` ). 
+      > Take note that available solutions will be displayed before
+   1. **Publish customization**
+   1. **Create settings**
+      > the file generated will be `<solution>_settings/<auth profile>_settings.json`
+
+if `--unpackonly` is specified    
+   1. **solution zip file** (could provide it on command line using: `--zipfile` ).
+   1. **Package type** that you've to export `Managed, Unmanaged, Both` (could provide it on command line using: `--package` ). 
+   1. **Local solution's folder** (could provide it on command line using: `--solution` ). 
 ##### Non-Interactive arguments :
 * `--keepzip` : keeps original exported packages zip
+* `--unpackonly` : perform only solution unpacking and skips export 
 
 ### zx-import-solution
 Pack solution from local file system and import it in a powerapps environment 
 
 #### Usage 
 ```
-npx zx-import-solution [--authindex <n>] [--solution <solution folder>] [--package Managed|Unmanaged|Both] [--packonly]
+npx zx-import-solution  [--authindex <n>] 
+                        [--solution <solution folder>] 
+                        [--package Managed|Unmanaged|Both] 
+                        [--packonly]
 ```
 ##### Interactive arguments :
-1. **Local solution's folder** (could provide it on command line using: `--solution` ). 
 
 if `--packonly` is not specified
    1. **Authentication profile's index** (could provide it on command line using: `--authindex` ).
+   1. **Local solution's folder** (could provide it on command line using: `--solution` ). 
    1. **Use settings file**
       > This will be asked only if the settings file `<solution>_settings/<auth profile>_settings.json` exists 
+
+if `--packonly` is specified
+   1. **Local solution's folder** (could provide it on command line using: `--solution` ). 
+
 ##### Non-Interactive arguments :
 * `--packonly` : perform only packing and skips import 
 

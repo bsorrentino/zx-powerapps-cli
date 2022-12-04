@@ -147,3 +147,47 @@ export const askYesOrNo = async ( message ) => {
  */
 export const getSettingsFile = (solutionFolder,selectedProfile) => 
     path.join( `${solutionFolder}_settings`, `${selectedProfile}_settings.json` )
+
+
+/**
+ * ask for package type
+ *
+ * @return  {string}  "Managed" | "Unmanaged" | "Both"
+ */
+export const askForPackageType = async () => {
+    if( argv.package ) {
+        return argv.package
+    }
+    const choice = await question('Managed/Unmanaged/Both (M/u/b): ')
+    if( choice !== null ) {
+        if( choice.startsWith('u') || choice.startsWith('U')) return 'Unmanaged'
+        if( choice.startsWith('b') || choice.startsWith('B')) return 'Both'
+    }
+    return 'Managed'
+}
+
+/**
+ * ask for a zip file
+ *
+ * @return  {string}  zip file path
+ */
+export const askForZipfile = async () => {
+    let zipfile = argv.zipfile 
+    for(;;) {
+
+        if( zipfile === undefined  || zipfile === null ) {
+            zipfile = await question('zip file: ')
+        }
+        try {
+            const stats = await fs.stat( zipfile )
+            if( stats.isFile() ) 
+                return zipfile
+
+            console.log( chalk.red(`zip file '${zipfile}' is not a valid file!`))            
+        }
+        catch( e ) {
+            console.log( chalk.red(`zip file  '${zipfile}' doesn't exist!`))
+        }
+        zipfile = null
+    }
+}

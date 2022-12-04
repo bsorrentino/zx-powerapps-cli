@@ -13,19 +13,11 @@ import {
     askForAuthProfile, 
     askForSolutionFolder,
     askYesOrNo,
-    getSettingsFile} from './zx-solution-utils.mjs'
+    getSettingsFile,
+    askForPackageType
+} from './zx-solution-utils.mjs'
 
-const askForPackageType = async () => {
-    if( argv.package ) {
-        return argv.package
-    }
-    const choice = await question('Managed/Unmanaged/Both (M/u/b): ')
-    if( choice !== null ) {
-        if( choice.startsWith('u') || choice.startsWith('U')) return 'Unmanaged'
-        if( choice.startsWith('b') || choice.startsWith('B')) return 'Both'
-    }
-    return 'Managed'
-}
+
 
 /**
  * validate existence and asks processing confirmation
