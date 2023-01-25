@@ -122,7 +122,7 @@ async function main_unpackonly() {
 
     const folder = await askForSolutionFolder()
 
-    const solution = path.join( folder, path.basename(file, '.zip').replace( /_(\d+)_(\d+)_(\d+)(_\d+)?.zip$/, '' ))
+    const solution = path.join( folder, path.basename(file, '.zip').replace( /_(\d+)_(\d+)_(\d+)(_\d+)?$/, '' ))
    
     await $`pac solution unpack --zipfile ${file} --folder ${solution} --packagetype ${ptype} --allowDelete`
 
