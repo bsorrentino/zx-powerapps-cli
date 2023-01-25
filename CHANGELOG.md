@@ -1,9 +1,13 @@
 # Changelog
 
 
+"name: v2.0.6" is a release tag
 
-## [Unreleased](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/Unreleased) ()
+## [v2.0.6](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.6) (2023-01-25)
 
+### Features
+
+ -  **zx-export-solution**  add support of --unpackonly argument ([f76fcdbd1972a0c](https://github.com/bsorrentino/zx-powerapps-cli/commit/f76fcdbd1972a0c65a172a22b62953c95d6adb53))
 
 ### Bug Fixes
 
@@ -12,6 +16,7 @@
 
 ### Documentation
 
+ -  **CHANGELOG.md**  update changelog ([b2c191c2ca253b2](https://github.com/bsorrentino/zx-powerapps-cli/commit/b2c191c2ca253b2a48a56aedb691c9795d8df1d1))
  -  **changelog**  update changelog ([72a8eac832ed4b7](https://github.com/bsorrentino/zx-powerapps-cli/commit/72a8eac832ed4b7e7dfdba4e71e14ba4439d0f4e))
 
 
@@ -26,7 +31,6 @@
 
 ### Features
 
- -  **zx-export-solution**  add support of --unpackonly argument ([f76fcdbd1972a0c](https://github.com/bsorrentino/zx-powerapps-cli/commit/f76fcdbd1972a0c65a172a22b62953c95d6adb53))
  -  finalize packonly management ([7b908ad681c11c5](https://github.com/bsorrentino/zx-powerapps-cli/commit/7b908ad681c11c51b223f2ae60c00ac39be2d9fc))
  -  add --packonly arg on import ([1425e7eeb5aab37](https://github.com/bsorrentino/zx-powerapps-cli/commit/1425e7eeb5aab37f36be746433725e91adda5bc4))
 
