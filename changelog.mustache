@@ -13,7 +13,11 @@
 
     {{#commits}}
       {{#ifCommitType . type='feat'}}
- - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{hash}}](https://github.com/bsorrentino/zx-powerapps-cli/commit/{{hashFull}}))
+ * {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{hash}}](https://github.com/bsorrentino/zx-powerapps-cli/commit/{{hashFull}}))
+   {{#messageBodyItems}} 
+     > {{.}}
+   {{/messageBodyItems}}
+   
       {{/ifCommitType}}
     {{/commits}}
 {{/ifContainsType}}
@@ -24,6 +28,10 @@
     {{#commits}}
       {{#ifCommitType . type='fix'}}
  - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{hash}}](https://github.com/bsorrentino/zx-powerapps-cli/commit/{{hashFull}}))
+   {{#messageBodyItems}} 
+     > {{.}}
+   {{/messageBodyItems}}
+
       {{/ifCommitType}}
     {{/commits}}
 {{/ifContainsType}}
@@ -34,6 +42,10 @@
     {{#commits}}
       {{#ifCommitType . type='docs'}}
  - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{hash}}](https://github.com/bsorrentino/zx-powerapps-cli/commit/{{hashFull}}))
+   {{#messageBodyItems}} 
+     > {{.}}
+   {{/messageBodyItems}}
+
       {{/ifCommitType}}
     {{/commits}}
 {{/ifContainsType}}
@@ -44,6 +56,10 @@
     {{#commits}}
       {{#ifCommitType . type='refactor'}}
  - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{hash}}](https://github.com/bsorrentino/zx-powerapps-cli/commit/{{hashFull}}))
+   {{#messageBodyItems}} 
+     > {{.}}
+   {{/messageBodyItems}}
+
       {{/ifCommitType}}
     {{/commits}}
 {{/ifContainsType}}
@@ -54,6 +70,10 @@
     {{#commits}}
       {{#ifCommitType . type='build'}}
  - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([{{hash}}](https://github.com/bsorrentino/zx-powerapps-cli/commit/{{hashFull}}))
+   {{#messageBodyItems}} 
+     > {{.}}
+   {{/messageBodyItems}}
+
       {{/ifCommitType}}
     {{/commits}}
 {{/ifContainsType}}
