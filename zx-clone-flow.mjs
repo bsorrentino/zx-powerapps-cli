@@ -6,7 +6,7 @@ import { Parser as XmlParser, Builder as XmlBuilder } from 'xml2js'
 
 import { 
     askForSolutionFolder
-} from '@bsorrentino/zx-powerapps-cli/zx-solution-utils.mjs'
+} from './zx-solution-utils.mjs'
 
 /**
  * [askForFLowFile description]
@@ -170,5 +170,35 @@ const main = async () => {
 
 }
 
+const help = () => {
 
-main()
+    const cmd = chalk.yellow
+    const token = chalk.gray.italic
+    const bp = chalk.whiteBright  
+    const pp = chalk.underline.bold
+
+    const lines = 
+    [
+    '',
+    cmd( 'npx zx-clone-flow [--solution <solution folder>] [--flow <flow json file name>] [--uuid <new flow uuid>]'),
+    '',
+    pp('Interactive arguments :'),
+    `${bp('1.')} Local solution's folder (could provide it on command line using: --solution ).`,
+    `${bp('2.')} Flow json file name in the form: ${token('<Prefix>-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.json')} present in ${token('<solution path>/Worlflows')} (could provide it on command line using: --flow )`,
+    '',
+    pp('Non-Interactive arguments :'),
+    `${bp('1.')} New Flow UUID in the form ${token('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX')}, if not provided a new one will be automatically generated`,
+    '',        
+    ]
+    
+    lines.forEach( (l) => console.log(l) )    
+
+}
+
+
+if( argv.help ) {
+    help()
+}
+else {
+    main()
+}
