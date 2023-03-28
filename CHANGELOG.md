@@ -1,12 +1,26 @@
 # Changelog
 
 
+"name: v2.0.7" is a release tag
 
-## [Unreleased](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/Unreleased) ()
+## [v2.0.7](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.7) (2023-03-28)
+
+
+### Bug Fixes
+
+ -  **zx-export-solution.mjs**  update regexp version ([21fd45d3ee0393d](https://github.com/bsorrentino/zx-powerapps-cli/commit/21fd45d3ee0393d2a3eae6fd9dde0a2d8c0b3836))
+     > accept solution version with only 2 digits
+
+
+### Documentation
+
+ -  **changelog.mustache**  add all commit optional body ([ea7508ea284fc0b](https://github.com/bsorrentino/zx-powerapps-cli/commit/ea7508ea284fc0bf7b45913916d3c6fb7443ccef))
 
 
 
+### ALM 
 
+ -  update version ([362675bd050a1f8](https://github.com/bsorrentino/zx-powerapps-cli/commit/362675bd050a1f8a23ca62291f87e82521a684ff))
 
 
 
