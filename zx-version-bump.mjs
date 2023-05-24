@@ -2,41 +2,10 @@
 import 'zx/globals'
 import { 
     askForAuthProfile,
-    askForSolutionFolder 
+    askForSolutionFolder, 
+    readSolutionInfo
 } from './zx-solution-utils.mjs'
 
-
-/**
- * read tag value `<Version>1.0.0.1</Version>` and  <UniqueName>development</UniqueName> in solution.xml
- * 
- * @param {string} solutionFile solution.xml path
- */
-async function readSolutionInfo( solutionFile ) {
-
-    const content = (await fs.readFile( solutionFile )).toString()
-
-    const namePattern = '(.+)'
-    const rxName = new RegExp(`<UniqueName>${namePattern}</UniqueName>`, 'ig')
-    const matchName =  content.match( rxName )
-    
-    if( matchName === null || matchName.length === 0 ) {
-        throw `unique name not found in solution file '${solutionFile}'`
-    }
-
-    const versionPattern = '([\\d+].[\\d+].[\\d+](?:.[\\d+])?)'
-    const rxVersion = new RegExp(`<Version>${versionPattern}</Version>`, 'ig')
-    const matchVersion =  content.match( rxVersion )
-
-    if( matchVersion === null || matchVersion.length === 0 ) {
-        throw `version not found in solution file '${solutionFile}'`
-    }
-        
-    return { 
-        uniqueName: rxName.exec(matchName[0])[1],
-        currentVersion: rxVersion.exec(matchVersion[0])[1]
-    }
-    
-}
 
 /**
  * 

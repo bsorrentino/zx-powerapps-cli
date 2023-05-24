@@ -14,7 +14,8 @@ import {
     askForSolutionFolder,
     askYesOrNo,
     getSettingsFile,
-    askForPackageType
+    askForPackageType,
+    readSolutionInfo
 } from './zx-solution-utils.mjs'
 
 
@@ -54,7 +55,7 @@ const validateSettingFile = async ( candidateSettingsFile ) => {
  * @return  {[type]}            [return description]
  */
 const getImportSolutionPath = ( solution, package_type, outdir ) => {
-       
+     
     switch( package_type ) {
         case 'Unmanaged':
             return path.join( outdir, `${solution}.zip`)
@@ -80,7 +81,9 @@ async function main() {
     
         const package_type = await askForPackageType()
        
-        const importSolutionPath = getImportSolutionPath( solution, package_type, os.tmpdir() )
+        const { currentVersion } = await readSolutionInfo( solution )
+
+        const importSolutionPath = getImportSolutionPath( `${solution}_${currentVersion}`, package_type, os.tmpdir() )
 
         await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
 
@@ -105,7 +108,9 @@ async function main_packonly() {
 
         const package_type = await askForPackageType()
        
-        const importSolutionPath = getImportSolutionPath( solution, package_type, '.' )
+        const { currentVersion } = await readSolutionInfo( solution )
+
+        const importSolutionPath = getImportSolutionPath( `${solution}_${currentVersion}`, package_type, '.' )
 
         await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
         
