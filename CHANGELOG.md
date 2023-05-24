@@ -1,6 +1,28 @@
 # Changelog
 
 
+"name: v2.0.8" is a release tag
+
+## [v2.0.8](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.8) (2023-05-24)
+
+### Features
+
+ *  **import**  add version to  zip ([fd07a803b972b96](https://github.com/bsorrentino/zx-powerapps-cli/commit/fd07a803b972b96d46bba7fab43c11cf293d4ec9))
+   
+
+
+### Documentation
+
+ -  **changelog.md**  update ([5afdb1375e5d567](https://github.com/bsorrentino/zx-powerapps-cli/commit/5afdb1375e5d567b36b8679477ade0d8f96827d5))
+
+
+
+### ALM 
+
+ -  update version and upgrade xmljs ([3d71d31b2180d67](https://github.com/bsorrentino/zx-powerapps-cli/commit/3d71d31b2180d6745c3fb739e5082222e2b56928))
+
+
+
 "name: v2.0.7" is a release tag
 
 ## [v2.0.7](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.7) (2023-03-28)
