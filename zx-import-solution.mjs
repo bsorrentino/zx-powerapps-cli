@@ -14,7 +14,8 @@ import {
     askForSolutionFolder,
     askYesOrNo,
     getSettingsFile,
-    askForPackageType
+    askForPackageType,
+    readSolutionInfo
 } from './zx-solution-utils.mjs'
 
 
@@ -44,6 +45,7 @@ const validateSettingFile = async ( candidateSettingsFile ) => {
     return null
 }
 
+
 /**
  * [getImportSolutionPath description]
  *
@@ -53,15 +55,20 @@ const validateSettingFile = async ( candidateSettingsFile ) => {
  *
  * @return  {[type]}            [return description]
  */
-const getImportSolutionPath = ( solution, package_type, outdir ) => {
-       
+const getImportSolutionPath = async ( solution, package_type, outdir ) => {
+    let name = solution
+    if( !argv.noversion ) {
+        const { currentVersion } = await readSolutionInfo( solution )
+        name = `${solution}_${currentVersion}`
+    }
+
     switch( package_type ) {
         case 'Unmanaged':
-            return path.join( outdir, `${solution}.zip`)
+            return path.join( outdir, `${name}.zip`)
         case 'Managed':
-            return path.join( outdir, `${solution}_managed.zip`)
+            return path.join( outdir, `${name}_managed.zip`)
         case 'Both': 
-            return path.join( outdir, `${solution}_both.zip`)
+            return path.join( outdir, `${name}_both.zip`)
     }
     throw `Unknow package type ${package_type}`
 }
@@ -79,8 +86,8 @@ async function main() {
         const settingsFile = await validateSettingFile( candidateSettingsFile )
     
         const package_type = await askForPackageType()
-       
-        const importSolutionPath = getImportSolutionPath( solution, package_type, os.tmpdir() )
+
+        const importSolutionPath = await getImportSolutionPath( solution, package_type, os.tmpdir() )
 
         await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
 
@@ -105,7 +112,7 @@ async function main_packonly() {
 
         const package_type = await askForPackageType()
        
-        const importSolutionPath = getImportSolutionPath( solution, package_type, '.' )
+        const importSolutionPath = await getImportSolutionPath( solution, package_type, '.' )
 
         await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
         
