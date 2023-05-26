@@ -1,8 +1,9 @@
 # Changelog
 
 
+"name: v2.0.9" is a release tag
 
-## [Unreleased](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/Unreleased) ()
+## [v2.0.9](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.9) (2023-05-26)
 
 ### Features
 
@@ -12,6 +13,8 @@
 
 
 ### Documentation
+
+ -  **CHANGELOG.md**  update ([690218fbeddf27f](https://github.com/bsorrentino/zx-powerapps-cli/commit/690218fbeddf27f9ad530e1eb72e985656abfbda))
 
  -  **README.md**  add --noversion parameter ([e027e3e2536674a](https://github.com/bsorrentino/zx-powerapps-cli/commit/e027e3e2536674a38ee523b964ce871e2e9e538a))
 
