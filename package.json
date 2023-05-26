@@ -1,6 +1,6 @@
 {
   "name": "@bsorrentino/zx-powerapps-cli",
-  "version": "2.0.6",
+  "version": "2.0.9",
   "description": "zx scripts to simplify powerapps cli (PAC) usage",
   "files": [
     "*.mjs"
@@ -13,7 +13,7 @@
     "zx-clone-flow": "./zx-clone-flow.mjs"
   },
   "dependencies": {
-    "xml2js": "^0.4.23",
+    "xml2js": "^0.5.0",
     "zx": "^7.0.8"
   },
   "scripts": {

@@ -158,7 +158,7 @@ async function main() {
                 .toList()
                 // .map( tap('parse') )
                 .map(row =>
-                    /([\w\d]+)\s+(.+)\s+([\d+].[\d+].[\d+](?:.[\d+])?)/ig.exec(row))
+                    /([\w\d]+)\s+(.+)\s+([\d+].[\d+](?:.[\d+])?(?:.[\d+])?)/ig.exec(row))
                 // .map( tap('matcher') )
                 .filter(notNull)
                 .map(m => ({ name: m[1], ver: m[3] }))
