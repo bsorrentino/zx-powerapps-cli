@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 /**
+ * zx-import-solution.mjs
+ * 
+ * 
  * Pack solution from local file system and import it in a powerapps environment 
  * 
  * @argument authindex <index of auth entry> optional
@@ -73,8 +76,50 @@ const getImportSolutionPath = async ( solution, package_type, outdir ) => {
     throw `Unknow package type ${package_type}`
 }
 
+
+async function fileExists( filePath ) {
+    try {
+        const stats = await fs.stat(  filePath )
+        return  stats.isFile() 
+    }
+    catch( e ) {
+        // file doesn't exists
+    }
+    return false
+} 
+
+async function __packSolution( solution ) {
+
+    let importSolutionPath = null
+
+    if( await fileExists( path.join( solution, `${solution}.cdsproj` )) ) {
+
+        await $`dotnet build ${solution}`
+
+        importSolutionPath =  path.join( solution, 'bin', 'Debug', `${solution}.zip`)
+
+        if( !await fileExists( importSolutionPath )) {
+            importSolutionPath = null
+        }
+    }
+
+    if( importSolutionPath === null ) {
+
+        const package_type = await askForPackageType()
+
+        importSolutionPath = await getImportSolutionPath( solution, package_type, os.tmpdir() )
+
+        await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`    
+    }
+
+    return importSolutionPath
+
+}
+
+
 async function main() {
     
+
     try {
 
         const selectedProfile =  await askForAuthProfile( )
@@ -85,16 +130,25 @@ async function main() {
 
         const settingsFile = await validateSettingFile( candidateSettingsFile )
     
-        const package_type = await askForPackageType()
+        const  importSolutionPath = await __packSolution( solution )
 
-        const importSolutionPath = await getImportSolutionPath( solution, package_type, os.tmpdir() )
+        const publishChanges = argv['publish-changes'] ?? false
 
-        await $`pac solution pack --zipfile ${importSolutionPath} -f ${solution} -p ${package_type} -aw`
+        let args = [
+            '-p', importSolutionPath,
+            '-f',
+            '-a',
+        ]
 
-        if( settingsFile!==null )  
-            await $`pac solution import -p ${importSolutionPath} -f -pc -a --settings-file ${settingsFile}`  
-        else
-            await $`pac solution import -p ${importSolutionPath} -f -pc -a`  
+        if( publishChanges ) {
+            args.push( '-pc')
+        }
+        if( settingsFile!==null ) {
+            args.push( '---settings-file')
+            args.push( settingsFile )
+        }
+
+        await $`pac solution import ${args}`  
         
     } catch (p) {
         if (p.exitCode)
