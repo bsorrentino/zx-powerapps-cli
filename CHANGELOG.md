@@ -1,6 +1,36 @@
 # Changelog
 
 
+"name: v2.1.0" is a release tag
+
+## [v2.1.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.1.0) (2023-07-11)
+
+### Features
+
+ *  **zx-import-solution.mjs**  remove publish changes by default ([05c7118a3dc2052](https://github.com/bsorrentino/zx-powerapps-cli/commit/05c7118a3dc2052bb623817bced17112b3aedd92))
+     > add argument --publish-changes
+     > issue #7
+   
+ *  **zx-solution-utils.mjs**  improve askForAuthProfile method ([04e04b67ac1559f](https://github.com/bsorrentino/zx-powerapps-cli/commit/04e04b67ac1559fd3b3ac063ffb29a39299557af))
+   
+ *  **zx-export-solution.mjs**  skip 'pac solution list' error ([3bc1532ba83bd89](https://github.com/bsorrentino/zx-powerapps-cli/commit/3bc1532ba83bd8916b61974bbbd893378c045f50))
+   
+
+
+### Documentation
+
+ -  **README.md**  update ([af44336a804be80](https://github.com/bsorrentino/zx-powerapps-cli/commit/af44336a804be80656f01bad9b3ba975a6c13648))
+
+ -  **CHANGELOG.md**  update ([edff3f9c5b56375](https://github.com/bsorrentino/zx-powerapps-cli/commit/edff3f9c5b5637547b4a5f9f29c71b77887963b0))
+
+
+
+### ALM 
+
+ -  move to next release ([f2f7385016f4f21](https://github.com/bsorrentino/zx-powerapps-cli/commit/f2f7385016f4f21a55ecf3bd5ae45114fd68c54c))
+
+
+
 "name: v2.0.9" is a release tag
 
 ## [v2.0.9](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.9) (2023-05-26)
