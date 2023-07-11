@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 /**
+ * zx-export-solution.mjs
+ * 
  * Export solution from powerapps a environment unpacking and saving it on local file system.
  * Solution is exported in both **Managed** and **Unmanged** package type
  * 
@@ -129,30 +131,23 @@ async function main_unpackonly() {
 
 }
 
-/**
- * perform mai export process 
- *
- */
-async function main() {
+async function __getSolution() {
+
+    if( argv.solution ) {
+        return { name: argv.solution, ver: 'latest' }
+    }
+
+    let solution_to_export = null
 
     try {
-        const selectedProfile = await askForAuthProfile()
-
-        // console.log( `selectedProfile: [${selectedProfile}]` )
-
         const solutionListOutput = new CaputeProcessOutput()
 
         // const rows = await getProcessOutputAsList( $`pac solution list` )
         await spinner(async () => {
-            if (argv.solution) {
-                await $`pac solution list`.pipe(solutionListOutput)
-            }
-            else {
                 await $`pac solution list`.pipe(solutionListOutput)
                 console.log(solutionListOutput.toString())
-            }
         })
-
+    
         const solutions =
             solutionListOutput
                 .toList()
@@ -162,21 +157,42 @@ async function main() {
                 // .map( tap('matcher') )
                 .filter(notNull)
                 .map(m => ({ name: m[1], ver: m[3] }))
+    
+        if (solutions.length > 0) {
 
-        if (solutions.length <= 0) {
-            console.warn( chalk.yellowBright('no solution detected!'))
-            return
-        }
-
-        // console.log( solutions )
-
-        const choice = (argv.solution) ?
-            argv.solution :
-            await question('solution unique name: ', {
+            const choice = await question('solution unique name: ', {
                 choices: solutions.map(s => s.name)
             })
+    
+            solution_to_export = solutions.find(s => s.name === choice)
+        }
+    
+        // console.debug( solutions )
+    
+    
+    }
+    catch( e ) {
+        // error executing commands
+    }
 
-        const solution_to_export = solutions.find(s => s.name === choice)
+    if( solution_to_export === null ) {
+        const name =  await question('solution unique name: ')
+
+        return { name: name, ver: 'latest'}
+    }
+}
+
+/**
+ * perform mai export process 
+ *
+ */
+async function main() {
+
+    try {
+        const selectedProfile = await askForAuthProfile()
+
+        const solution_to_export = await __getSolution()
+
         if (solution_to_export) {
 
             await publishCustomization()
