@@ -1,6 +1,33 @@
 # Changelog
 
 
+"name: v2.0.9" is a release tag
+
+## [v2.0.9](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.9) (2023-05-26)
+
+### Features
+
+ *  **zx-import-solution.mjs**  add parameter --noversion ([3a2f1fb6c0519eb](https://github.com/bsorrentino/zx-powerapps-cli/commit/3a2f1fb6c0519ebd0bcaba21b1f561e908daec95))
+     > if --noversion is specified the solution version is not included in generated zip&#x27;s name
+   
+
+
+### Documentation
+
+ -  **CHANGELOG.md**  update ([690218fbeddf27f](https://github.com/bsorrentino/zx-powerapps-cli/commit/690218fbeddf27f9ad530e1eb72e985656abfbda))
+
+ -  **README.md**  add --noversion parameter ([e027e3e2536674a](https://github.com/bsorrentino/zx-powerapps-cli/commit/e027e3e2536674a38ee523b964ce871e2e9e538a))
+
+ -  **CHANGELOG.md**  update ([a37fc4643c4c0bb](https://github.com/bsorrentino/zx-powerapps-cli/commit/a37fc4643c4c0bb53eb616846cd6e9e0e5f5e8c6))
+
+
+
+### ALM 
+
+ -  **package.json**  move to next release 2.0.9 ([8c3c39e0242b790](https://github.com/bsorrentino/zx-powerapps-cli/commit/8c3c39e0242b79013c1ad2975935cb59a2333883))
+
+
+
 "name: v2.0.8" is a release tag
 
 ## [v2.0.8](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.8) (2023-05-24)
@@ -50,10 +77,6 @@
 
 ## [v2.0.6](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.6) (2023-01-25)
 
-### Features
-
- *  **zx-export-solution**  add support of --unpackonly argument ([f76fcdbd1972a0c](https://github.com/bsorrentino/zx-powerapps-cli/commit/f76fcdbd1972a0c65a172a22b62953c95d6adb53))
-   
 
 ### Bug Fixes
 
@@ -83,9 +106,7 @@
 
 ### Features
 
- *  finalize packonly management ([7b908ad681c11c5](https://github.com/bsorrentino/zx-powerapps-cli/commit/7b908ad681c11c51b223f2ae60c00ac39be2d9fc))
-   
- *  add --packonly arg on import ([1425e7eeb5aab37](https://github.com/bsorrentino/zx-powerapps-cli/commit/1425e7eeb5aab37f36be746433725e91adda5bc4))
+ *  **zx-export-solution**  add support of --unpackonly argument ([f76fcdbd1972a0c](https://github.com/bsorrentino/zx-powerapps-cli/commit/f76fcdbd1972a0c65a172a22b62953c95d6adb53))
    
 
 
@@ -105,10 +126,12 @@
 
 ## [v2.0.4](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.4) (2022-11-28)
 
+### Features
 
-### Bug Fixes
-
- -  **zx-export-solution**  fix parse 'pac solution list' output ([62f7b7fbaa622f2](https://github.com/bsorrentino/zx-powerapps-cli/commit/62f7b7fbaa622f20edb72027b7f7d32c9c4261cb))
+ *  finalize packonly management ([7b908ad681c11c5](https://github.com/bsorrentino/zx-powerapps-cli/commit/7b908ad681c11c51b223f2ae60c00ac39be2d9fc))
+   
+ *  add --packonly arg on import ([1425e7eeb5aab37](https://github.com/bsorrentino/zx-powerapps-cli/commit/1425e7eeb5aab37f36be746433725e91adda5bc4))
+   
 
 
 ### Documentation
@@ -127,47 +150,21 @@
 
 ## [v2.0.3](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.3) (2022-09-20)
 
-### Features
-
- *  **zx-clone-flow.mjs**  cloud flow clone script ([f0ab329cd1f0abe](https://github.com/bsorrentino/zx-powerapps-cli/commit/f0ab329cd1f0abeb6c2296218794566e7b9fe092))
-     > #4
-   
- *  **zx-clone-flow**  initial draft implementation ([288632d517723b9](https://github.com/bsorrentino/zx-powerapps-cli/commit/288632d517723b9e4f191843a8a172626c83bcbe))
-     > #1
-   
- *  **export-solution**  support of 'keep_zip' argument ([d5caa51118ee818](https://github.com/bsorrentino/zx-powerapps-cli/commit/d5caa51118ee8184856d0467c31bccb65416021a))
-     > #3
-   
 
 ### Bug Fixes
 
- -  parsing result of 'solution list' ([89a559375f92505](https://github.com/bsorrentino/zx-powerapps-cli/commit/89a559375f9250531bcd6066cd561c122117f44f))
-
- -  remove package vulnerabilities ([52c2f11d7e0c7ae](https://github.com/bsorrentino/zx-powerapps-cli/commit/52c2f11d7e0c7aeadf82d7f5d63fb84cadbb816c))
-     > remove devdep &#x27;cz-conventional-changelog@3.3.0&#x27; , &#x27;standard-version@9.3.2&#x27;
+ -  **zx-export-solution**  fix parse 'pac solution list' output ([62f7b7fbaa622f2](https://github.com/bsorrentino/zx-powerapps-cli/commit/62f7b7fbaa622f20edb72027b7f7d32c9c4261cb))
 
 
 ### Documentation
 
  -  update changelog ([4194dee1ded7127](https://github.com/bsorrentino/zx-powerapps-cli/commit/4194dee1ded7127465bc3277d7e3885a8507db55))
 
- -  update changelog ([1fc2db2403e1dd9](https://github.com/bsorrentino/zx-powerapps-cli/commit/1fc2db2403e1dd9f3e734a4f90c1f0fe55839cd8))
-
- -  update readme ([3c3f4a49a74b2ec](https://github.com/bsorrentino/zx-powerapps-cli/commit/3c3f4a49a74b2ec1e2d94c3d9c3d14b5def7128c))
-
-
-### Refactor
-
- -  remove deprecated 'startSpinner' function ([8d173563d522471](https://github.com/bsorrentino/zx-powerapps-cli/commit/8d173563d5224717edad818d994f48ed473e2485))
-
- -  update comments ([8847f0f9a8e3887](https://github.com/bsorrentino/zx-powerapps-cli/commit/8847f0f9a8e3887f016ad1ca20fde395f29578e7))
 
 
 ### ALM 
 
  -  update release version ([c95fb20307dd78b](https://github.com/bsorrentino/zx-powerapps-cli/commit/c95fb20307dd78bfc104e86db46d84811cf48e01))
-
- -  upgrade zx version and node compatibility ([ce0eb6272320392](https://github.com/bsorrentino/zx-powerapps-cli/commit/ce0eb6272320392cf83002b732ea3c471caa1034))
 
 
 
@@ -205,6 +202,18 @@
 
 ## [v2.0.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.0.0) (2022-09-19)
 
+### Features
+
+ *  **zx-clone-flow.mjs**  cloud flow clone script ([f0ab329cd1f0abe](https://github.com/bsorrentino/zx-powerapps-cli/commit/f0ab329cd1f0abeb6c2296218794566e7b9fe092))
+     > #4
+   
+ *  **zx-clone-flow**  initial draft implementation ([288632d517723b9](https://github.com/bsorrentino/zx-powerapps-cli/commit/288632d517723b9e4f191843a8a172626c83bcbe))
+     > #1
+   
+
+### Bug Fixes
+
+ -  parsing result of 'solution list' ([89a559375f92505](https://github.com/bsorrentino/zx-powerapps-cli/commit/89a559375f9250531bcd6066cd561c122117f44f))
 
 
 ### Documentation
@@ -212,11 +221,19 @@
  -  update readme ([abafe8b0d5c4e4d](https://github.com/bsorrentino/zx-powerapps-cli/commit/abafe8b0d5c4e4dd8ae1674dd76fae76cdaacb4c))
      > #4
 
+ -  update changelog ([1fc2db2403e1dd9](https://github.com/bsorrentino/zx-powerapps-cli/commit/1fc2db2403e1dd9f3e734a4f90c1f0fe55839cd8))
+
+
+### Refactor
+
+ -  remove deprecated 'startSpinner' function ([8d173563d522471](https://github.com/bsorrentino/zx-powerapps-cli/commit/8d173563d5224717edad818d994f48ed473e2485))
 
 
 ### ALM 
 
  -  add script ([69489f021352c37](https://github.com/bsorrentino/zx-powerapps-cli/commit/69489f021352c373d4786b862443fecd2412381f))
+
+ -  upgrade zx version and node compatibility ([ce0eb6272320392](https://github.com/bsorrentino/zx-powerapps-cli/commit/ce0eb6272320392cf83002b732ea3c471caa1034))
 
 
 
@@ -224,23 +241,33 @@
 
 ## [v1.5.3](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v1.5.3) (2022-07-08)
 
+### Features
+
+ *  **export-solution**  support of 'keep_zip' argument ([d5caa51118ee818](https://github.com/bsorrentino/zx-powerapps-cli/commit/d5caa51118ee8184856d0467c31bccb65416021a))
+     > #3
+   
+
+### Bug Fixes
+
+ -  remove package vulnerabilities ([52c2f11d7e0c7ae](https://github.com/bsorrentino/zx-powerapps-cli/commit/52c2f11d7e0c7aeadf82d7f5d63fb84cadbb816c))
+     > remove devdep &#x27;cz-conventional-changelog@3.3.0&#x27; , &#x27;standard-version@9.3.2&#x27;
 
 
 ### Documentation
 
  -  update changelog ([893e23fead1a6f4](https://github.com/bsorrentino/zx-powerapps-cli/commit/893e23fead1a6f4f710dfc51ce98d1984de384fe))
 
+ -  update readme ([3c3f4a49a74b2ec](https://github.com/bsorrentino/zx-powerapps-cli/commit/3c3f4a49a74b2ec1e2d94c3d9c3d14b5def7128c))
+
 
 ### Refactor
 
- -  **zx-version-bump**  add trailing space to question ([3a23ba255512f95](https://github.com/bsorrentino/zx-powerapps-cli/commit/3a23ba255512f95982b19ac6f5a4d5d021e5aee1))
+ -  update comments ([8847f0f9a8e3887](https://github.com/bsorrentino/zx-powerapps-cli/commit/8847f0f9a8e3887f016ad1ca20fde395f29578e7))
 
 
 ### ALM 
 
  -  move to next release version ([1cac184d498d531](https://github.com/bsorrentino/zx-powerapps-cli/commit/1cac184d498d531b509effb08be76ab097c8f347))
-
- -  add 'release' script ([72761f7381ff183](https://github.com/bsorrentino/zx-powerapps-cli/commit/72761f7381ff18313b55e840e86657830d59a0de))
 
 
 
@@ -256,6 +283,10 @@
 
 
 
+### ALM 
+
+ -  add 'release' script ([72761f7381ff183](https://github.com/bsorrentino/zx-powerapps-cli/commit/72761f7381ff18313b55e840e86657830d59a0de))
+
 
 
 "name: v1.5.1" is a release tag
@@ -264,6 +295,10 @@
 
 
 
+
+### Refactor
+
+ -  **zx-version-bump**  add trailing space to question ([3a23ba255512f95](https://github.com/bsorrentino/zx-powerapps-cli/commit/3a23ba255512f95982b19ac6f5a4d5d021e5aee1))
 
 
 
@@ -291,10 +326,6 @@
  *  **auth-profile**  obtain the auth profile name during authentication phase ([ca3d09ae3adc299](https://github.com/bsorrentino/zx-powerapps-cli/commit/ca3d09ae3adc299d0f78c0f7dd2c6d03ebbbce89))
    
 
-### Bug Fixes
-
- -  **zx-version-bump**  set the right script for zx-version-bump ([f5e530ca82d5726](https://github.com/bsorrentino/zx-powerapps-cli/commit/f5e530ca82d57264b3b7a92150f09557868cdbf6))
-
 
 ### Documentation
 
@@ -313,6 +344,10 @@
 
 ## [v1.4.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v1.4.0) (2022-03-29)
 
+
+### Bug Fixes
+
+ -  **zx-version-bump**  set the right script for zx-version-bump ([f5e530ca82d5726](https://github.com/bsorrentino/zx-powerapps-cli/commit/f5e530ca82d57264b3b7a92150f09557868cdbf6))
 
 
 
@@ -359,10 +394,6 @@
 
 ## [v1.2.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v1.2.0) (2022-03-25)
 
-### Features
-
- *  **export-solution**  add support for cli argument 'solution name' ([2a75b3fc8b668c8](https://github.com/bsorrentino/zx-powerapps-cli/commit/2a75b3fc8b668c8c160e95b393cd9589998860f3))
-   
 
 
 
@@ -393,6 +424,10 @@
 
 ## [v1.0.5](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v1.0.5) (2022-03-11)
 
+### Features
+
+ *  **export-solution**  add support for cli argument 'solution name' ([2a75b3fc8b668c8](https://github.com/bsorrentino/zx-powerapps-cli/commit/2a75b3fc8b668c8c160e95b393cd9589998860f3))
+   
 
 
 ### Documentation
@@ -406,16 +441,10 @@
 
  -  **export-solution**  rename main function ([e91db373cdeec1f](https://github.com/bsorrentino/zx-powerapps-cli/commit/e91db373cdeec1fbcab7253d9a6f47c4af3e640f))
 
- -  update shebang ([d0ec7f0307955e5](https://github.com/bsorrentino/zx-powerapps-cli/commit/d0ec7f0307955e5d60f6ce69e3136dbc3a77e2df))
-
 
 ### ALM 
 
  -  update version ([777256a159a0e26](https://github.com/bsorrentino/zx-powerapps-cli/commit/777256a159a0e262302b9c25a11d666c3f006528))
-
- -  update bin assets ([227f4530c53307c](https://github.com/bsorrentino/zx-powerapps-cli/commit/227f4530c53307cfdca2114b9f9a0e1fb1e23aa7))
-
- -  add engine info ([8f99da12d8648cd](https://github.com/bsorrentino/zx-powerapps-cli/commit/8f99da12d8648cda46e7cef7d9d7b32969667f0f))
 
 
 
@@ -430,6 +459,16 @@
  -  update readme ([2f9faa73aa3708d](https://github.com/bsorrentino/zx-powerapps-cli/commit/2f9faa73aa3708de43715d9ed02ea0a6d0470d66))
 
 
+### Refactor
+
+ -  update shebang ([d0ec7f0307955e5](https://github.com/bsorrentino/zx-powerapps-cli/commit/d0ec7f0307955e5d60f6ce69e3136dbc3a77e2df))
+
+
+### ALM 
+
+ -  update bin assets ([227f4530c53307c](https://github.com/bsorrentino/zx-powerapps-cli/commit/227f4530c53307cfdca2114b9f9a0e1fb1e23aa7))
+
+ -  add engine info ([8f99da12d8648cd](https://github.com/bsorrentino/zx-powerapps-cli/commit/8f99da12d8648cda46e7cef7d9d7b32969667f0f))
 
 
 

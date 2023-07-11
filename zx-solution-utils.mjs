@@ -1,3 +1,6 @@
+/**
+ * zx-solution-utils.mjs
+ */
 
 import { Writable } from 'stream'
 import 'zx/globals'
@@ -5,15 +8,19 @@ import { $ } from 'zx'
 
 export const askForAuthProfile = async () => {
 
+    
     let output = new CaputeProcessOutput()
     
+    const parseOutput = () => 
+        output.toList() .filter( row => /[*]/ig.test(row) )
+                        [0]
+                        .split( /\s+/)
+                        
     if( argv.authindex ) {
         await $`pac auth select --index ${argv.authindex}`.pipe(output)
-        const rows = output.toList()  
-                        .map( row => 
-                                /^[*]\s+([\w\d]+)\s+([^\s.]+)/ig.exec(row) )
-                        .filter( m => m !== null )
-        return rows[0][2]                
+        const profile = parseOutput()[2]
+        // console.debug( profile )     
+        return profile          
     }
 
     await $`pac auth list`.pipe(output)
@@ -29,12 +36,9 @@ export const askForAuthProfile = async () => {
         $.verbose = prev
     }
         
-    const token = output.toList()        
-                    .map( row => 
-                        /^\[(\d+)\]\s+([*]?)\s+([\w\d]+)\s+([^\s.]+)/ig.exec(row) )
-                    .filter( m => m !== null &&  m[2]==='*'  )
-
-    return token[0][4]                
+    const profile = parseOutput()[3]
+    // console.debug( profile )
+    return profile                
 }
 
 /**
@@ -223,7 +227,7 @@ export async function readSolutionInfo( solutionPath ) {
         throw `unique name not found in solution file '${solutionFile}'`
     }
 
-    const versionPattern = '([\\d+].[\\d+].[\\d+](?:.[\\d+])?)'
+    const versionPattern = '([\\d+].[\\d+](?:.[\\d+])?(?:.[\\d+])?)'
     const rxVersion = new RegExp(`<Version>${versionPattern}</Version>`, 'ig')
     const matchVersion =  content.match( rxVersion )
 

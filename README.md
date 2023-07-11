@@ -70,6 +70,8 @@ npx zx-import-solution  [--authindex <n>]
                         [--solution <solution folder>] 
                         [--package Managed|Unmanaged|Both] 
                         [--packonly]
+                        [--noversion]
+                        [--publish-changes]
 ```
 ##### Interactive arguments :
 
@@ -84,6 +86,8 @@ if `--packonly` is specified
 
 ##### Non-Interactive arguments :
 * `--packonly` : perform only packing and skips import 
+* `--noversion` : remove version from generated zip 
+* `----publish-changes` : publish your changes upon a successful import 
 
 ### zx-version-bump
 Update local and remote solution's version
