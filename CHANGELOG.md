@@ -1,8 +1,9 @@
 # Changelog
 
 
+"name: v2.2.0" is a release tag
 
-## [Unreleased](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/Unreleased) ()
+## [v2.2.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.2.0) (2023-07-17)
 
 
 ### Bug Fixes
@@ -11,6 +12,8 @@
 
 
 ### Documentation
+
+ -  **CHANGELOG.md**  update ([9bdfb6a37bd7d93](https://github.com/bsorrentino/zx-powerapps-cli/commit/9bdfb6a37bd7d93fab0dce42092e34071347d679))
 
  -  **CHANGELOG.md**  update ([a7a960faf485068](https://github.com/bsorrentino/zx-powerapps-cli/commit/a7a960faf485068aa2bc313d0580e3498f0fff27))
 
