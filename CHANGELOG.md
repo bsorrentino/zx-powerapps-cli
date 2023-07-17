@@ -1,6 +1,27 @@
 # Changelog
 
 
+
+## [Unreleased](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/Unreleased) ()
+
+
+### Bug Fixes
+
+ -  **zx-export-solution.mjs**  always return solution_to_export ([e96aa449b3e2b91](https://github.com/bsorrentino/zx-powerapps-cli/commit/e96aa449b3e2b91c7970597bd231d8a42f3872f6))
+
+
+### Documentation
+
+ -  **CHANGELOG.md**  update ([a7a960faf485068](https://github.com/bsorrentino/zx-powerapps-cli/commit/a7a960faf485068aa2bc313d0580e3498f0fff27))
+
+
+
+### ALM 
+
+ -  move to next version ([db35a460a247c59](https://github.com/bsorrentino/zx-powerapps-cli/commit/db35a460a247c594cc896e3c60c20cc27dd224b9))
+
+
+
 "name: v2.1.0" is a release tag
 
 ## [v2.1.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.1.0) (2023-07-11)
