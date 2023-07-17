@@ -165,6 +165,7 @@ async function __getSolution() {
             })
     
             solution_to_export = solutions.find(s => s.name === choice)
+            // console.debug( 'solution_to_export', solution_to_export )
         }
     
         // console.debug( solutions )
@@ -180,6 +181,8 @@ async function __getSolution() {
 
         return { name: name, ver: 'latest'}
     }
+
+    return solution_to_export
 }
 
 /**
@@ -216,7 +219,7 @@ async function main() {
 
         }
         else {
-            console.error(`solution '${choice}' is not valid!`)
+            console.error(`solution is not valid!`)
         }
 
     } catch (p) {
