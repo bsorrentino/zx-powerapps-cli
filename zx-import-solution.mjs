@@ -144,7 +144,7 @@ async function main() {
             args.push( '-pc')
         }
         if( settingsFile!==null ) {
-            args.push( '---settings-file')
+            args.push( '--settings-file')
             args.push( settingsFile )
         }
 
