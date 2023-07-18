@@ -1,6 +1,27 @@
 # Changelog
 
 
+
+## [Unreleased](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/Unreleased) ()
+
+
+### Bug Fixes
+
+ -  **zx-import-solution.mjs**  bad import settings param ([e285feab66fb573](https://github.com/bsorrentino/zx-powerapps-cli/commit/e285feab66fb57391f1fc80aead6928cfaa81acb))
+
+
+### Documentation
+
+ -  **CHANGELOG.md**  update ([db73bee04657ed3](https://github.com/bsorrentino/zx-powerapps-cli/commit/db73bee04657ed3ddedcc7495ae1929666ee746a))
+
+
+
+### ALM 
+
+ -  move to next release ([999a295958411e9](https://github.com/bsorrentino/zx-powerapps-cli/commit/999a295958411e93ebcac2e715dca9f144ec9786))
+
+
+
 "name: v2.2.0" is a release tag
 
 ## [v2.2.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.2.0) (2023-07-17)
