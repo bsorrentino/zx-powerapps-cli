@@ -23,13 +23,21 @@ import 'zx/globals'
  * @param {CaputeProcessOutput} output - The output stream to write the profiles to.
  * @returns {AuthProfile[]} The array of profiles.
  */
-const getProfiles = (output) =>
-    output.toList().slice(1).map( (row, i) => {
+const getProfiles = (output) => {
+
+    const profiles = output.toList().slice(1)
+
+    if( profiles.length === 0 ) {
+        throw new Error('no auth profiles found!')
+    }
+
+    return profiles.map( (row, i) => {
 
         const [ _, active, kind, name, user, cloud, type, ...rest ] = row.split( /\s+/)
     
         return { index:`${i+1}`, active: (active==='*'), kind, name, user, cloud, type, url:rest.pop() } 
     })
+}
 /**
  * Finds a profile by index in the profiles array.
  *
@@ -40,22 +48,24 @@ const getProfiles = (output) =>
 const findProfileByIndex = (profiles, index) => { 
     const profile = profiles.find( value => value.index === index )
     if( !profile ) {
-        throw new Error(`auth profile with index ${argv.authindex} not found!`)
+        //throw new Error(`auth profile with index ${argv.authindex} not found!`)
+        console.warn(`auth profile with index ${index} not found!` )
     }
     return profile
 }
 /**
- * Finds first active profile.
+ * Get  active profile.
  *
  * @param {AuthProfile[]} profiles - The array of profiles to search.
- * @returns {AuthProfile|undefined} The profile object if found, otherwise undefined.
+ * @returns {AuthProfile[]} The profile object if found, otherwise undefined.
  */
-const findFirstActiveProfile = (profiles) => { 
-    const profile = profiles.find( value => value.active )
-    if( !profile ) {
-        throw new Error(`no active auth profile found!`)
+const getActiveProfiles = (profiles) => { 
+    const result = profiles.filter( value => value.active )
+    if( result.length === 0 ) {
+        console.warn( `no active auth profile found!` )
+        // throw new Error(`no active auth profile found!`)
     }
-    return profile
+    return result
 }
 
 /**
@@ -80,13 +90,43 @@ export const askForAuthProfile = async () => {
 
     const profiles = getProfiles(output)
 
-    const choice = await question('choose profile index (enter for confirm active one): ')
-    if( choice.trim().length > 0 ) {
-        await $`pac auth select --index ${choice}`  
-        return findProfileByIndex(profiles, choice )
+    const activeProfiles = getActiveProfiles(profiles)
+
+    if( activeProfiles.length === 1 ) {
+
+        while( true ) {
+
+            const choice = await question('choose profile index (enter for confirm active one): ')
+            if( choice.trim().length === 0 ) break
+
+            const result = findProfileByIndex(profiles, choice )
+
+            if( result ) {
+                await $`pac auth select --index ${choice}`  
+                return result
+            }
+            
+            
+        }
+
+        return activeProfiles[0]
     }
+    else {
         
-    return findFirstActiveProfile(profiles)                
+        while( true ) {
+
+            const choice = await question('choose profile index: ')
+            if( choice.trim().length === 0 ) continue
+
+            const result = findProfileByIndex(profiles, choice )
+
+            if( result ) {
+                await $`pac auth select --index ${choice}`  
+                return result
+            }
+            
+        }
+    }             
 }
 
 /**
