@@ -1,6 +1,43 @@
 # Changelog
 
 
+
+## [Unreleased](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/Unreleased) ()
+
+
+
+
+
+
+
+"name: v2.3.0" is a release tag
+
+## [v2.3.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.3.0) (2024-02-22)
+
+### Features
+
+ *  check for multiple active auth profiles ([df682e3807d68e8](https://github.com/bsorrentino/zx-powerapps-cli/commit/df682e3807d68e82c97b875365506038709fdcad))
+     > resolve #9
+   
+
+
+### Documentation
+
+ -  **CHANGELOG.md**  update ([922ef36d86064f5](https://github.com/bsorrentino/zx-powerapps-cli/commit/922ef36d86064f54bc7227e2f3a214a848861473))
+
+
+### Refactor
+
+ -  improve askForAuthProfile impl ([6bd4d01ba31c631](https://github.com/bsorrentino/zx-powerapps-cli/commit/6bd4d01ba31c6313a27a7decc972b682a7c31e7a))
+     > work on #9
+
+
+### ALM 
+
+ -  move to next version ([720554535aac570](https://github.com/bsorrentino/zx-powerapps-cli/commit/720554535aac570f19de8245085578df32995c26))
+
+
+
 "name: v2.2.1" is a release tag
 
 ## [v2.2.1](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.2.1) (2023-07-18)
