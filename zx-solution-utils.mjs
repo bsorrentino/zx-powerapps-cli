@@ -4,41 +4,89 @@
 
 import { Writable } from 'stream'
 import 'zx/globals'
-import { $ } from 'zx'
 
+/**
+ * @typedef AuthProfile
+ * @property {string} index - The index of the solution.
+ * @property {boolean} active - Whether the solution is active or not. 
+ * @property {string} kind - The kind of solution.
+ * @property {string} name - The name of the solution.
+ * @property {string} user - The owner of the solution.
+ * @property {string} cloud - The cloud environment of the solution.
+ * @property {string} type - The type of solution.
+ * @property {string} url - The URL of the solution.
+ */
+
+/**
+ * Gets profiles from the given output stream.
+ *
+ * @param {CaputeProcessOutput} output - The output stream to write the profiles to.
+ * @returns {AuthProfile[]} The array of profiles.
+ */
+const getProfiles = (output) =>
+    output.toList().slice(1).map( (row, i) => {
+
+        const [ _, active, kind, name, user, cloud, type, ...rest ] = row.split( /\s+/)
+    
+        return { index:`${i+1}`, active: (active==='*'), kind, name, user, cloud, type, url:rest.pop() } 
+    })
+/**
+ * Finds a profile by index in the profiles array.
+ *
+ * @param {AuthProfile[]} profiles - The array of profiles to search.
+ * @param {number|string} index - The index of the profile to find. 
+ * @returns {AuthProfile|undefined} The profile object if found, otherwise undefined.
+ */
+const findProfileByIndex = (profiles, index) => { 
+    const profile = profiles.find( value => value.index === index )
+    if( !profile ) {
+        throw new Error(`auth profile with index ${argv.authindex} not found!`)
+    }
+    return profile
+}
+/**
+ * Finds first active profile.
+ *
+ * @param {AuthProfile[]} profiles - The array of profiles to search.
+ * @returns {AuthProfile|undefined} The profile object if found, otherwise undefined.
+ */
+const findFirstActiveProfile = (profiles) => { 
+    const profile = profiles.find( value => value.active )
+    if( !profile ) {
+        throw new Error(`no active auth profile found!`)
+    }
+    return profile
+}
+
+/**
+ * Asks the user to select an authentication profile and returns the selected profile.
+ * 
+ * Uses the Azure CLI 'pac auth' commands to list profiles and select one.
+ * 
+ * @returns {Promise<AuthProfile>} The selected authentication profile object
+ */
 export const askForAuthProfile = async () => {
 
+    const output = new CaputeProcessOutput()
     
-    let output = new CaputeProcessOutput()
-    
-    const parseOutput = () => 
-        output.toList() .filter( row => /[*]/ig.test(row) )
-                        [0]
-                        .split( /\s+/)
-                        
     if( argv.authindex ) {
         await $`pac auth select --index ${argv.authindex}`.pipe(output)
-        const profile = parseOutput()[2]
-        // console.debug( profile )     
-        return profile          
+
+        return findProfileByIndex(getProfiles(output), argv.authindex )
     }
 
     await $`pac auth list`.pipe(output)
     console.log( output.toString() )
 
+    const profiles = getProfiles(output)
+
     const choice = await question('choose profile index (enter for confirm active one): ')
     if( choice.trim().length > 0 ) {
         await $`pac auth select --index ${choice}`  
-        output = new CaputeProcessOutput()
-        const prev = $.verbose
-        $.verbose = false
-        await $`pac auth list`.pipe(output)
-        $.verbose = prev
+        return findProfileByIndex(profiles, choice )
     }
         
-    const profile = parseOutput()[3]
-    // console.debug( profile )
-    return profile                
+    return findFirstActiveProfile(profiles)                
 }
 
 /**
@@ -90,32 +138,53 @@ export const getProcessOutputAsList = async ( processOutput ) => {
     return result
 }
 
+
 /**
- * Writeable stream that capure output in a string
+ * Captures process output into a string or array
+ * Extends Writable stream
  */
 export class CaputeProcessOutput extends Writable {
 
+    /**
+     * Constructor
+     */
     constructor() {
-        super()
-        this._buf = ''
+      super();
+      this._buf = '';
     }
-
+  
+    /**
+     * Implements Writable._write
+     * @param {string} chunk - The chunk to write 
+     * @param {string} enc - The encoding
+     * @param {Function} next - Callback when write is complete
+     */
     write(chunk, enc, next) {
-        const value = chunk.toString(enc)
-        this._buf = this._buf.concat( value )
-        if( next ) next();
+      const value = chunk.toString(enc);
+      this._buf = this._buf.concat(value);
+      if (next) next();
     }
-
-    toString() { 
-        return this._buf 
+  
+    /**
+     * Get the entire output as a string
+     * @returns {string} The output
+     */
+    toString() {
+      return this._buf;
     }
-
+  
+    /**
+     * Get the output as an array split by newline
+     * @returns {string[]} The output array
+     */
     toList() {
-        return this._buf.split('\n')
-                    .map( r => r.trim() )
-                    .filter( r => r.length > 0 )
+      return this._buf.split('\n')
+        .map(r => r.trim())
+        .filter(r => r.length > 0);
     }
-}
+  
+  }
+  
 
 /**
  * prompt for question that require Yes or No. default is Yes

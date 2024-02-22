@@ -126,7 +126,7 @@ async function main() {
 
         const solution = await askForSolutionFolder()
 
-        const candidateSettingsFile = getSettingsFile( solution, selectedProfile )
+        const candidateSettingsFile = getSettingsFile( solution, selectedProfile.name )
 
         const settingsFile = await validateSettingFile( candidateSettingsFile )
     
