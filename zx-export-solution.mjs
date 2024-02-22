@@ -214,7 +214,7 @@ async function main() {
             }
 
             if (await askNoOrYes('export settings')) {
-                await createSettings(solution_to_export.name, selectedProfile)
+                await createSettings(solution_to_export.name, selectedProfile.name)
             }
 
         }
