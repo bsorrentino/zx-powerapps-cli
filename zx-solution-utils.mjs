@@ -46,7 +46,7 @@ const getProfiles = (output) => {
  * @returns {AuthProfile|undefined} The profile object if found, otherwise undefined.
  */
 const findProfileByIndex = (profiles, index) => { 
-    const profile = profiles.find( value => value.index === index )
+    const profile = profiles.find( value => value.index == index )
     if( !profile ) {
         //throw new Error(`auth profile with index ${argv.authindex} not found!`)
         console.warn(`auth profile with index ${index} not found!` )
