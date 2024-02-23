@@ -1,6 +1,29 @@
 # Changelog
 
 
+"name: v2.4.0" is a release tag
+
+## [v2.4.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.4.0) (2024-02-23)
+
+
+### Bug Fixes
+
+ -  add getSelectedProfiles to parse output after auth profile selection ([85cb68dbbdbf17f](https://github.com/bsorrentino/zx-powerapps-cli/commit/85cb68dbbdbf17f1de6c9b79418669788f21e8f2))
+     > work on #9
+
+
+### Documentation
+
+ -  update ghangelog ([3f8bf3b5a3df3d4](https://github.com/bsorrentino/zx-powerapps-cli/commit/3f8bf3b5a3df3d43fa371ffe0fb8888ec4af36a0))
+
+
+
+### ALM 
+
+ -  move to next version ([5ef90b46c60d5f2](https://github.com/bsorrentino/zx-powerapps-cli/commit/5ef90b46c60d5f245a5f1fd55e884db5c9e70a5e))
+
+
+
 "name: v2.3.1" is a release tag
 
 ## [v2.3.1](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.3.1) (2024-02-23)
