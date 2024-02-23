@@ -1,6 +1,29 @@
 # Changelog
 
 
+"name: v2.4.1" is a release tag
+
+## [v2.4.1](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.4.1) (2024-02-23)
+
+
+### Bug Fixes
+
+ -  set selected profile without check index ([eba29a58c4b3cb4](https://github.com/bsorrentino/zx-powerapps-cli/commit/eba29a58c4b3cb4e7391ed318c4a26be22298af1))
+     > work on #9
+
+
+### Documentation
+
+ -  update changelog ([e7e05ac8ceb445a](https://github.com/bsorrentino/zx-powerapps-cli/commit/e7e05ac8ceb445accacb0a1092307b5da518b20b))
+
+
+
+### ALM 
+
+ -  move to next minor version ([4a1760e40c25ea2](https://github.com/bsorrentino/zx-powerapps-cli/commit/4a1760e40c25ea2e03aebc82134a1a512cbfcfb4))
+
+
+
 "name: v2.4.0" is a release tag
 
 ## [v2.4.0](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.4.0) (2024-02-23)
