@@ -43,10 +43,10 @@ const getProfiles = (output) => {
  * Gets selected profile from the given output stream.
  *
  * @param {CaputeProcessOutput} output - The output stream to write the profiles to.
- * @returns {AuthProfile[]} The array of profiles.
+ * @returns {AuthProfile} The array of profiles.
  */
 
-const getSelectedProfiles = (output) => {
+const getSelectedProfile = (output) => {
 
     const selectedProfiles = output.toList().slice(1)
 
@@ -54,12 +54,16 @@ const getSelectedProfiles = (output) => {
         throw new Error('no selected auth profile found!')
     }
 
+    if( selectedProfiles.length > 1 ) {
+        throw new Error('multiple selected auth profiles found!')
+    }
+
     return selectedProfiles.map( (row, i) => {
     
         const [ active, kind, name, _, user, cloud,  ...rest ] = row.split( /\s+/)
     
         return { index:i+1, active: (active==='*'), kind, name, user, cloud, url:rest.pop() } 
-    })  
+    })[0]  
 }
 
 /**
@@ -106,7 +110,7 @@ export const askForAuthProfile = async () => {
     if( argv.authindex ) {
         await $`pac auth select --index ${argv.authindex}`.pipe(output)
 
-        return findProfileByIndex(getSelectedProfiles(output), argv.authindex )
+        return getSelectedProfile(output)
     }
 
     await $`pac auth list`.pipe(output)
