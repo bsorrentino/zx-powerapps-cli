@@ -28,14 +28,56 @@ export class CaputeProcessOutput extends Writable {
     }
 }
 
-const output = new CaputeProcessOutput()
+async function test1() {
+    const output = new CaputeProcessOutput()
   
-await $`pac auth list`.pipe(output)
+    await $`pac auth list`.pipe(output)
+    
+    const profiles = output.toList().slice(1).map( (row, i) => {
+    
+        const [ index, active, kind, name, user, cloud, type, ...rest ] = row.split( /\s+/)
+    
+        return { index:i+1, active: (active==='*'), kind, name, user, cloud, type, url:rest.pop() } 
+    })
+    .forEach( profile => console.log( profile ))
+}
 
-const profiles = output.toList().slice(1).map( (row, i) => {
+async function test2() {
 
-    const [ index, active, kind, name, user, cloud, type, ...rest ] = row.split( /\s+/)
+const output = 
+`
+Index Active Kind      Name               User               Cloud  Type Environment               Environment Url
+[1]          DATAVERSE Personal           pippo@contoso.com              Public User                             
+[2]          DATAVERSE PreProd_Support    pippo@contoso.com              Public User                             
+[3]          DATAVERSE Production_Support pippo@contoso.com              Public User                             
+[4]          DATAVERSE PreProd            pippo@contoso.com  Public User Contoso Pre-Production    https://contoso.crm11.dynamics.com/
+[5]          DATAVERSE Production         pippo@contoso.com  Public User Contoso UK Production     https://contoso.crm12.dynamics.com/
+[6]   *      DATAVERSE SandboxUK          pippo@contoso.com  Public User Contoso UK Sandbox        https://contoso.crm13.dynamics.com/
+`
 
-    return { index:i+1, active: (active==='*'), kind, name, user, cloud, type, url:rest.pop() } 
-})
-.forEach( profile => console.log( profile ))
+    const findProfileByIndex = (profiles, index) => { 
+        const profile = profiles.find( value => value.index == index )
+        if( !profile ) {
+            //throw new Error(`auth profile with index ${argv.authindex} not found!`)
+            console.warn(`auth profile with index ${index} not found!` )
+        }
+        return profile
+    }
+
+    const profiles = output.split('\n')
+                            .map( r => r.trim() )
+                            .filter( r => r.length > 0 )
+
+    const result = profiles.slice(1).map( (row, i) => {
+
+        const [ _, active, kind, name, user, cloud, type, ...rest ] = row.split( /\s+/)
+    
+        return { index:`${i+1}`, active: (active==='*'), kind, name, user, cloud, type, url:rest.pop() } 
+    })
+
+    console.debug( result )
+
+    console.debug(findProfileByIndex(result, 6))
+}
+
+test2()
