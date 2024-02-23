@@ -42,6 +42,20 @@ async function test1() {
     .forEach( profile => console.log( profile ))
 }
 
+async function test1_1() {
+    const output = new CaputeProcessOutput()
+  
+    await $`pac auth select --index 1`.pipe(output)
+    
+    const profiles = output.toList().slice(1).map( (row, i) => {
+    
+        const [ active, kind, name, filler, user, cloud,  ...rest ] = row.split( /\s+/)
+    
+        return { index:i+1, active: (active==='*'), kind, name, user, cloud, url:rest.pop() } 
+    })
+    .forEach( profile => console.log( profile ))
+}
+
 async function test2() {
 
 const output = 
@@ -80,4 +94,6 @@ Index Active Kind      Name               User               Cloud  Type Environ
     console.debug(findProfileByIndex(result, 6))
 }
 
-test2()
+
+
+test1_1()

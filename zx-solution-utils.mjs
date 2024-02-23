@@ -13,7 +13,7 @@ import 'zx/globals'
  * @property {string} name - The name of the solution.
  * @property {string} user - The owner of the solution.
  * @property {string} cloud - The cloud environment of the solution.
- * @property {string} type - The type of solution.
+ * @property {string|undefined} type - The type of solution.
  * @property {string} url - The URL of the solution.
  */
 
@@ -38,6 +38,30 @@ const getProfiles = (output) => {
         return { index:`${i+1}`, active: (active==='*'), kind, name, user, cloud, type, url:rest.pop() } 
     })
 }
+
+/**
+ * Gets selected profile from the given output stream.
+ *
+ * @param {CaputeProcessOutput} output - The output stream to write the profiles to.
+ * @returns {AuthProfile[]} The array of profiles.
+ */
+
+const getSelectedProfiles = (output) => {
+
+    const selectedProfiles = output.toList().slice(1)
+
+    if( selectedProfiles.length === 0 ) {
+        throw new Error('no selected auth profile found!')
+    }
+
+    return selectedProfiles.map( (row, i) => {
+    
+        const [ active, kind, name, _, user, cloud,  ...rest ] = row.split( /\s+/)
+    
+        return { index:i+1, active: (active==='*'), kind, name, user, cloud, url:rest.pop() } 
+    })  
+}
+
 /**
  * Finds a profile by index in the profiles array.
  *
@@ -82,7 +106,7 @@ export const askForAuthProfile = async () => {
     if( argv.authindex ) {
         await $`pac auth select --index ${argv.authindex}`.pipe(output)
 
-        return findProfileByIndex(getProfiles(output), argv.authindex )
+        return findProfileByIndex(getSelectedProfiles(output), argv.authindex )
     }
 
     await $`pac auth list`.pipe(output)
