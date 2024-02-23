@@ -1,12 +1,25 @@
 # Changelog
 
 
+"name: v2.3.1" is a release tag
 
-## [Unreleased](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/Unreleased) ()
+## [v2.3.1](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.3.1) (2024-02-23)
+
+
+### Bug Fixes
+
+ -  change compare operator in findProfileByIndex() ([2c250db0f5797d8](https://github.com/bsorrentino/zx-powerapps-cli/commit/2c250db0f5797d8731ebac035329edec598ac0e1))
+
+
+### Documentation
+
+ -  update changelog ([3b0eb338adb5834](https://github.com/bsorrentino/zx-powerapps-cli/commit/3b0eb338adb5834d79cc35da490d4b9b547d1862))
 
 
 
+### ALM 
 
+ -  move to next minor version ([d593ce61db7d27a](https://github.com/bsorrentino/zx-powerapps-cli/commit/d593ce61db7d27ab2d471c3bf862396a3a70cfcd))
 
 
 
