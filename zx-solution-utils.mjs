@@ -364,7 +364,7 @@ export async function readSolutionInfo( solutionPath ) {
         throw `unique name not found in solution file '${solutionFile}'`
     }
 
-    const versionPattern = '([\\d+].[\\d+](?:.[\\d+])?(?:.[\\d+])?)'
+    const versionPattern = '([\\d]+.[\\d]+(?:.[\\d]+)?(?:.[\\d]+)?)'
     const rxVersion = new RegExp(`<Version>${versionPattern}</Version>`, 'ig')
     const matchVersion =  content.match( rxVersion )
 
