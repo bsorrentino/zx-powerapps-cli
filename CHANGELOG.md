@@ -1,6 +1,29 @@
 # Changelog
 
 
+"name: v2.4.2" is a release tag
+
+## [v2.4.2](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.4.2) (2025-09-19)
+
+
+
+### Documentation
+
+ -  update changelog ([11664aca1c42d2f](https://github.com/bsorrentino/zx-powerapps-cli/commit/11664aca1c42d2f12232a11315726cea24e34ba9))
+
+
+### Refactor
+
+ -  **zx-solution-utils**  adjust version pattern for regex matching ([06309c0709a3662](https://github.com/bsorrentino/zx-powerapps-cli/commit/06309c0709a3662ee4744bc7df4426852f95e91e))
+     > fixed minor regex pattern for version extraction
+
+
+### ALM 
+
+ -  Bump version to 2.4.2 ([7958284f230fbd0](https://github.com/bsorrentino/zx-powerapps-cli/commit/7958284f230fbd0082438ad799229f4712551262))
+
+
+
 "name: v2.4.1" is a release tag
 
 ## [v2.4.1](https://github.com/bsorrentino/zx-powerapps-cli/releases/tag/v2.4.1) (2024-02-23)
